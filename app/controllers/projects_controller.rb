@@ -26,12 +26,22 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+   
+
     @project = Project.new(project_params)
 
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
+        
+        @project_admin = ProjectUser.new()
+        @project_admin.users_id = current_user.id
+        @project_admin.role = "Administrator"
+        @project_admin.projects_id = @project.id
+        @project_admin.save
+      
+
       else
         format.html { render :new }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -72,5 +82,9 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:name, :description, :color)
+    end
+
+    def project_users_params
+      params.require(:project_users).permit(:users_id, :role)
     end
 end
