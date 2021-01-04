@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  date_start: 2021-01-04
+  date_end: 2021-01-04
+  status: MyString
+  description: MyString
+  user_id: 
+
+two:
+  title: MyString
+  date_start: 2021-01-04
+  date_end: 2021-01-04
+  status: MyString
+  description: MyString
+  user_id: 
