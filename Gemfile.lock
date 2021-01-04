@@ -192,13 +192,10 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
-<<<<<<< HEAD
     warden (1.2.9)
       rack (>= 2.0.9)
-=======
     tzinfo-data (1.2020.6)
       tzinfo (>= 1.0.0)
->>>>>>> 6af3c11170e8813a4139b567bede590017ace5ab
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
