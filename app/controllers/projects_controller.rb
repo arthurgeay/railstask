@@ -28,11 +28,13 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+<<<<<<< HEAD
    
     @users = User.all
 
+=======
+>>>>>>> 851e1b9eeedd6302bd9d0e6d0c3681e4da5e0ed2
     @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -44,6 +46,8 @@ class ProjectsController < ApplicationController
         @project_admin.projects_id = @project.id
         @project_admin.save
       
+        @project_member = ProjectUser.new()
+        puts @project_member.inspect
 
       else
         format.html { render :new }
@@ -70,6 +74,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    @users = User.all
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
@@ -89,6 +94,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_users_params
-      params.require(:project_users).permit(:users_id, :role)
+      params.require(:project_user).permit(:users_id, :role)
     end
 end

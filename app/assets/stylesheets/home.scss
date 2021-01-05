@@ -1,3 +1,82 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+//Variables
+$main: #CC0000;
+$light-gray: #F3F3F3;
+$background: #FFF;
+
+
+$font-white: #FFF;
+$font-gray: #999999;
+$font-black: #000;
+
+body {
+    font-family: sans-serif;
+    background-color: $background;
+}
+
+
+input {
+    border: none;
+    background-color: $light-gray;
+    outline-color: $main;
+    font-size: 1rem;
+    &[type=password],
+    &[type=email] {
+        margin-bottom: 1rem;
+        padding: .4rem .7rem;
+    }
+    &[type=submit] {
+        background-color: $main;
+        padding: 0.7rem 1rem;
+        border-radius: .5rem;
+        color: $font-white;
+        font-weight: bold;
+    }
+    &[type=checkbox] {
+        filter: hue-rotate(160deg) brightness(80%);
+    }
+}
+
+label {
+    font-size: 1.2rem;
+    color: $main;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+
+//Specific case of labels and inputs
+label[for=user_remember_me] {
+    font-size: .9rem;
+    color: $font-gray;
+    margin-bottom: 0;
+}
+
+.forgot-password {
+    text-decoration: none;
+    color: $main;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.subtitle-action {
+    color: $font-black;
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_04_122218) do
+ActiveRecord::Schema.define(version: 2021_01_04_133211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "project_users", force: :cascade do |t|
-    t.bigint "users_id"
+    t.bigint "user_id"
     t.string "role"
-    t.bigint "projects_id"
+    t.bigint "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["projects_id"], name: "index_project_users_on_projects_id"
-    t.index ["users_id"], name: "index_project_users_on_users_id"
+    t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id"], name: "index_project_users_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -31,6 +31,28 @@ ActiveRecord::Schema.define(version: 2021_01_04_122218) do
     t.string "color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.date "date_start"
+    t.date "date_end"
+    t.string "status"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "task_list_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["task_list_id"], name: "index_tasks_on_task_list_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,4 +68,7 @@ ActiveRecord::Schema.define(version: 2021_01_04_122218) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "task_lists"
+  add_foreign_key "tasks", "users"
 end
