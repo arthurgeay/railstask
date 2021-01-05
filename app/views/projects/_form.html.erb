@@ -28,9 +28,9 @@
   </div>
 
         
-  <div class="field">
-    <label for="exampleDataList" class="form-label">Add member</label>
-    <select id="datalistOptions" name="project[project_users_attributes][][user_id]">
+  <div class="field member">
+    <label for="exampleDataList" class="form-label member-label">Add member</label>
+    <select id="datalistOptions" class="member-select" name="project[project_users_attributes][][user_id]">
       <option value"">
       <% @users.each do |user| %>
         <option class="form-control" value="<%= user.id %>"><%= user.email %></option>
