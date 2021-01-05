@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2021_01_04_133211) do
   enable_extension "plpgsql"
 
   create_table "project_users", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "users_id"
     t.string "role"
-    t.bigint "project_id"
+    t.bigint "projects_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_project_users_on_project_id"

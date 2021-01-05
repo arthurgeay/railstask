@@ -28,8 +28,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    byebug
-
+   
     @users = User.all
 
     @project = Project.new(project_params)
