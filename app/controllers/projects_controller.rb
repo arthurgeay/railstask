@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = User.all
+    @projects = Project.all
   end
 
   # GET /projects/1
@@ -28,26 +28,24 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-<<<<<<< HEAD
-   
+    byebug
+
     @users = User.all
 
-=======
->>>>>>> 851e1b9eeedd6302bd9d0e6d0c3681e4da5e0ed2
     @project = Project.new(project_params)
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
         
-        @project_admin = ProjectUser.new()
-        @project_admin.users_id = current_user.id
-        @project_admin.role = "Administrator"
-        @project_admin.projects_id = @project.id
-        @project_admin.save
+        # @project_admin = ProjectUser.new()
+        # @project_admin.users_id = current_user.id
+        # @project_admin.role = "Administrator"
+        # @project_admin.projects_id = @project.id
+        # @project_admin.save
       
-        @project_member = ProjectUser.new()
-        puts @project_member.inspect
+        # @project_member = ProjectUser.new()
+        # puts @project_member.inspect
 
       else
         format.html { render :new }
@@ -90,10 +88,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :description, :color)
-    end
-
-    def project_users_params
-      params.require(:project_user).permit(:users_id, :role)
+      params.require(:project).permit(:name, :description, :color, project_users_attributes: [ :user_id, :role ])
     end
 end

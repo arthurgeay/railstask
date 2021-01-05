@@ -26,38 +26,22 @@
     <%= form.text_field :color %>
   </div>
 
-<<<<<<< HEAD
+        
   <div class="field">
-    <% @projects.each do |project| %> 
-      <label for="exampleDataList" class="form-label">Datalist example</label>
-      <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-      <datalist id="datalistOptions">
-        <option value="San Francisco">
-        <option value="New York">
-        <option value="Seattle">
-        <option value="Los Angeles">
-        <option value="Chicago">
-      </datalist>
-    <%= form.text_field :collaborator %>
+    <label for="exampleDataList" class="form-label">Add member</label>
+    <select id="datalistOptions" name="project[project_users_attributes][][user_id]">
+      <% @users.each do |user| %>
+        <option class="form-control" value="<%= user.id %>"><%= user.email %></option>
+      <% end %>
+    </select>
+    <input type="text" id="role" name="project[project_users_attributes][][role]" value="Membre" hidden >
   </div>
 
   <div class="field">
-    <%= form.label :role %>
-    <%= form.text_field :role %>
+    <input type="text" class="form-control"  id="id" name="project[project_users_attributes][][user_id]" value=<%= current_user.id %> hidden>
+    <input type="text" class="form-control"  id="role" name="project[project_users_attributes][][role]" value="Administrator"hidden >
   </div>
 
-
-
-=======
-  <label for="exampleDataList" class="form-label">Add member</label>
-  <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-  <datalist id="datalistOptions">
-    <% @users.each do |user| %>
-      <option value="<%= user.id %>"><%= user.email %></option>
-    <% end %>
-  </datalist>
-    
->>>>>>> 851e1b9eeedd6302bd9d0e6d0c3681e4da5e0ed2
   <div class="actions">
     <%= form.submit %>
   </div>
