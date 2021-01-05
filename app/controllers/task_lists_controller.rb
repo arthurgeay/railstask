@@ -17,7 +17,7 @@ class TaskListsController < ApplicationController
   # GET /task_lists/new
   def new
     @project = Project.find(params[:project_id])
-    @task_list = @project.task_lists.build
+    @task_list = TaskList.new
   end
 
   # GET /task_lists/1/edit
