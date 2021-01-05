@@ -16,6 +16,8 @@ $font-white: #FFF;
 $font-gray: #999999;
 $font-black: #000;
 
+$shdw: 1px 2px 4px rgba(0, 0, 0, 0.08);
+
 body {
     font-family: sans-serif;
     background-color: $background;
@@ -139,12 +141,25 @@ label[for=user_remember_me] {
 
 
 //specials popup
+.plugin {
+    border-radius: 50%;
+    padding: 1rem;
+    border: none;
+    box-shadow: $shdw;
+    cursor: pointer;
+    svg {
+        width: 2rem;
+        height: 2rem;
+    }
+}
 .integration {
     display: flex;
     background-color: $lighter-gray;
     width: fit-content;
     border-radius: .5rem;
+    box-shadow: $shdw;
     &-card {
+        cursor: pointer;
         background-color: $lighter-gray;
         width: 4rem;
         height: 5rem;
@@ -167,3 +182,4 @@ label[for=user_remember_me] {
         }
     }
 }
+
