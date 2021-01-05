@@ -15,6 +15,7 @@ class TaskListsTest < ApplicationSystemTestCase
     click_on "New Task List"
 
     fill_in "Name", with: @task_list.name
+    fill_in "Project", with: @task_list.project_id
     click_on "Create Task list"
 
     assert_text "Task list was successfully created"
@@ -26,6 +27,7 @@ class TaskListsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @task_list.name
+    fill_in "Project", with: @task_list.project_id
     click_on "Update Task list"
 
     assert_text "Task list was successfully updated"
