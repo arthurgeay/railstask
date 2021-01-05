@@ -1,41 +1,29 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Date start</th>
-      <th>Date end</th>
-      <th>Status</th>
-      <th>Description</th>
-      <th>User</th>
-      <th>Project</th>
-      <th>Task list</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.date_start %></td>
-        <td><%= task.date_end %></td>
-        <td><%= task.status %></td>
-        <td><%= task.description %></td>
-        <td><%= task.user_id %></td>
-        <td><%= task.project_id %></td>
-        <td><%= task.task_list_id %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<main>
+  
+  <h1>Tasks</h1>
+  
+  <% @tasks.each do |task| %>
+    <div class="task">
+      <p class="task-status"><%= task.status %></p>
+      <p class="task-title"><%= task.title %></p>
+      <p class="task-duration">2 jours</p>
+      <p class="task-description"><%= task.description %></p>
+      <ul class="task-users">
+        <li class="task-user"><%= task.user_id %></li>
+        <li class="task-user">User 1</li>
+        <li class="task-user">User 2</li>
+        <li class="task-user">User 3</li>
+      </ul>
+      <p class=""><%= task.project_id %></p>
+      <p class=""><%= task.task_list_id %></p>
+      <div class="task-commands">
+        <%= link_to 'Show', task %>
+        <%= link_to 'Edit', edit_task_path(task) %>
+        <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Task', new_task_path %>
+  
+  <%= link_to 'New Task', new_task_path, class: 'new-task' %>
+</main>

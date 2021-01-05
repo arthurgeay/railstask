@@ -1,44 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
+<div class="task">
+  <p class="task-status"><%= @task.status %></p>
+  <p class="task-title"><%= @task.title %></p>
+  <p class="task-duration">2 jours</p>
+  <p class="task-description"><%= @task.description %></p>
+  <ul class="task-users">
+    <li class="task-user"><%= @task.user_id %></li>
+  </ul>
+  <p class=""><%= @task.project_id %></p>
+  <p class=""><%= @task.task_list_id %></p>
+</div>
 
-<p>
-  <strong>Date start:</strong>
-  <%= @task.date_start %>
-</p>
 
-<p>
-  <strong>Date end:</strong>
-  <%= @task.date_end %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @task.status %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @task.user_id %>
-</p>
-
-<p>
-  <strong>Project:</strong>
-  <%= @task.project_id %>
-</p>
-
-<p>
-  <strong>Task list:</strong>
-  <%= @task.task_list_id %>
-</p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

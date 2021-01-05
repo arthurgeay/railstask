@@ -219,3 +219,74 @@ label[for=user_remember_me] {
     }
 }
 
+.new {
+    &-task {
+        color: $font-white;
+        background-color: $main;
+        text-decoration: none;
+        padding: 1rem;
+        font-weight: bold;
+        border-radius: .5rem;
+    }
+}
+
+
+//Styles for task
+.task {
+    background-color: #7AB6FD;
+    width: 37ch;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 1rem 0;
+    &::after {
+        content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="20" height="32" viewBox="0 0 48 76"><g id="Groupe_1317" data-name="Groupe 1317" transform="translate(-549 -325)">          <circle id="Ellipse_258" data-name="Ellipse 258" cx="9" cy="9" r="9" transform="translate(549 325)"/>         <circle id="Ellipse_259" data-name="Ellipse 259" cx="9" cy="9" r="9" transform="translate(579 325)"/>          <circle id="Ellipse_260" data-name="Ellipse 260" cx="9" cy="9" r="9" transform="translate(549 354)"/>          <circle id="Ellipse_261" data-name="Ellipse 261" cx="9" cy="9" r="9" transform="translate(579 354)"/><circle id="Ellipse_262" data-name="Ellipse 262" cx="9" cy="9" r="9" transform="translate(549 383)"/><circle id="Ellipse_263" data-name="Ellipse 263" cx="9" cy="9" r="9" transform="translate(579 383)"/></g></svg>');
+        position: absolute;
+        width: 2rem;
+        top: 1.5rem;
+        right: .7rem;
+        opacity: 0.4;
+        filter: invert(1);
+
+    }
+    p,li {
+        margin: 0;
+        color: $font-white;
+        margin-bottom: 0.4rem;
+    }
+    &-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding-right: 2rem;
+    }
+    &-status {
+        font-size: 0.8rem;
+    }
+    &-duration {
+        font-size: 0.8rem;
+        background-color: $font-white;
+        border-radius: 2.5rem;
+        color: #7AB6FD!important;
+        width: fit-content;
+        padding: 0.3rem 0.5rem;
+        margin-bottom: 1rem!important;
+    }
+    &-description {
+        opacity: 0.7;
+    }
+    &-user{
+        &s{
+            display: flex;
+            list-style-type: none;
+        }
+
+    }
+    &-commands {
+        position: absolute;
+        right: -4rem;
+        display: flex;
+        flex-direction: column;
+    }
+}
