@@ -28,6 +28,9 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+   
+    @users = User.all
+
     @project = Project.new(project_params)
     respond_to do |format|
       if @project.save
@@ -53,6 +56,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @users = User.all
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
