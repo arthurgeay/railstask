@@ -6,7 +6,9 @@
 $main: #CC0000;
 $light-gray: #F3F3F3;
 $background: #FFF;
-$warning: #FF9029;
+$alert: #FF9029;
+$warning:#FFC828;
+$success: #49E00F;
 
 $font-white: #FFF;
 $font-gray: #999999;
@@ -74,9 +76,21 @@ label {
 .notice,
 .alert {
     position: absolute;
-    top: 0;
+    top: 1rem;
     left: 50%;
+    transition: .2s ease-in;
     transform: translate(0, -50%);
+    border-radius: .5rem;
+    &:not(:empty) {
+        padding: 1rem 1.2rem;
+    }
+}
+
+.notice {
+    background-color: $success;
+}
+.alert {
+    background-color: $alert;
 }
 
 header {
