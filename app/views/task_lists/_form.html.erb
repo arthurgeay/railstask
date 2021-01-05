@@ -1,6 +1,6 @@
 <%= form_with(model: task_list, local: true) do |form| %>
   <% if task_list.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="error-message">
       <h2><%= pluralize(task_list.errors.count, "error") %> prohibited this task_list from being saved:</h2>
 
       <ul>
