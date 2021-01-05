@@ -4,8 +4,10 @@
 
 //Variables
 $main: #CC0000;
+$lighter-gray: #F7F7F7;
 $light-gray: #F3F3F3;
-$background: #FFF;
+$gray: #F0F0F0;
+$background: #FFFFFF;
 $alert: #FF9029;
 $warning:#FFC828;
 $success: #49E00F;
@@ -13,6 +15,8 @@ $success: #49E00F;
 $font-white: #FFF;
 $font-gray: #999999;
 $font-black: #000;
+
+$shdw: 1px 2px 4px rgba(0, 0, 0, 0.08);
 
 body {
     font-family: sans-serif;
@@ -27,6 +31,8 @@ input {
     background-color: $light-gray;
     outline-color: $main;
     font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
     &[type=password],
     &[type=email] {
         margin-bottom: 1rem;
@@ -42,6 +48,18 @@ input {
     &[type=checkbox] {
         filter: hue-rotate(160deg) brightness(80%);
     }
+}
+
+textarea,
+select {
+    border: none;
+    background-color: $light-gray;
+    outline-color: $main;
+    font-size: 1rem;
+    font-family: sans-serif;
+    resize: none;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 label {
@@ -77,9 +95,10 @@ label {
 .alert {
     position: absolute;
     top: 1rem;
-    left: 50%;
-    transition: .2s ease-in;
-    transform: translate(0, -50%);
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
     border-radius: .5rem;
     &:not(:empty) {
         padding: 1rem 1.2rem;
@@ -131,3 +150,72 @@ label[for=user_remember_me] {
     display: block;
     padding: 0.5rem;
 }
+
+.member {
+    &-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        width: 10ch;
+        text-align: center;
+        &::before {
+            content: '+';
+            color: $background;
+            border-radius: 50%;
+            background-color: $main;
+            font-size: 2rem;
+            padding: 0 .5rem;
+            margin: 0 auto;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+
+
+
+
+//specials popup
+.plugin {
+    border-radius: 50%;
+    padding: 1rem;
+    border: none;
+    box-shadow: $shdw;
+    cursor: pointer;
+    svg {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+.integration {
+    display: flex;
+    background-color: $lighter-gray;
+    width: fit-content;
+    border-radius: .5rem;
+    box-shadow: $shdw;
+    &-card {
+        cursor: pointer;
+        background-color: $lighter-gray;
+        width: 4rem;
+        height: 5rem;
+        padding: 2rem;
+        padding-bottom: 4rem;
+        margin: .5rem;
+        border-radius: .5rem;
+        transition: .2s ease-in;
+        &:hover {
+            background-color: $light-gray;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        p {
+            font-size: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+}
+

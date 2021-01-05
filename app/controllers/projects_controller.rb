@@ -6,12 +6,19 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}})
+
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+  end
+
+  def enforce_current_profile
+    unless @profile && @profile.user == current_user.id
+      format.html { redirect_to @project, notice: 'This is not one of your projects' }
+    end
   end
 
   # GET /projects/new
@@ -37,14 +44,14 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
         
-        @project_admin = ProjectUser.new()
-        @project_admin.users_id = current_user.id
-        @project_admin.role = "Administrator"
-        @project_admin.projects_id = @project.id
-        @project_admin.save
+        # @project_admin = ProjectUser.new()
+        # @project_admin.users_id = current_user.id
+        # @project_admin.role = "Administrator"
+        # @project_admin.projects_id = @project.id
+        # @project_admin.save
       
-        @project_member = ProjectUser.new()
-        puts @project_member.inspect
+        # @project_member = ProjectUser.new()
+        # puts @project_member.inspect
 
       else
         format.html { render :new }
@@ -87,10 +94,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:name, :description, :color)
-    end
-
-    def project_users_params
-      params.require(:project_user).permit(:users_id, :role)
+      params.require(:project).permit(:name, :description, :color, project_users_attributes: [ :user_id, :role ])
     end
 end

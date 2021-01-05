@@ -5,6 +5,7 @@ class TaskListsController < ApplicationController
   # GET /task_lists
   # GET /task_lists.json
   def index
+    @project = Project.find(params[:project_id])
     @task_lists = TaskList.where(project_id: params[:project_id])
   end
 
