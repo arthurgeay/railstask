@@ -26,29 +26,6 @@
     <%= form.text_field :color %>
   </div>
 
-<<<<<<< HEAD
-  <div class="field">
-    <% @projects.each do |project| %> 
-      <label for="exampleDataList" class="form-label">Datalist example</label>
-      <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-      <datalist id="datalistOptions">
-        <option value="San Francisco">
-        <option value="New York">
-        <option value="Seattle">
-        <option value="Los Angeles">
-        <option value="Chicago">
-      </datalist>
-    <%= form.text_field :collaborator %>
-  </div>
-
-  <div class="field">
-    <%= form.label :role %>
-    <%= form.text_field :role %>
-  </div>
-
-
-
-=======
   <label for="exampleDataList" class="form-label">Add member</label>
   <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
   <datalist id="datalistOptions">
@@ -57,7 +34,6 @@
     <% end %>
   </datalist>
     
->>>>>>> 851e1b9eeedd6302bd9d0e6d0c3681e4da5e0ed2
   <div class="actions">
     <%= form.submit %>
   </div>
