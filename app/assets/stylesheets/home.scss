@@ -31,6 +31,8 @@ input {
     background-color: $light-gray;
     outline-color: $main;
     font-size: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
     &[type=password],
     &[type=email] {
         margin-bottom: 1rem;
@@ -46,6 +48,18 @@ input {
     &[type=checkbox] {
         filter: hue-rotate(160deg) brightness(80%);
     }
+}
+
+textarea,
+select {
+    border: none;
+    background-color: $light-gray;
+    outline-color: $main;
+    font-size: 1rem;
+    font-family: sans-serif;
+    resize: none;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 label {
@@ -135,6 +149,26 @@ label[for=user_remember_me] {
     padding: 0.5rem;
 }
 
+.member {
+    &-label {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.9rem;
+        width: 10ch;
+        text-align: center;
+        &::before {
+            content: '+';
+            color: $background;
+            border-radius: 50%;
+            background-color: $main;
+            font-size: 2rem;
+            padding: 0 .5rem;
+            margin: 0 auto;
+            margin-bottom: 0.5rem;
+        }
+    }
+}
 
 
 
