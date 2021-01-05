@@ -12,6 +12,7 @@ class TaskListsController < ApplicationController
   # GET /task_lists/1
   # GET /task_lists/1.json
   def show
+    @tasks = Task.where(task_list_id: params[:id])
   end
 
   # GET /task_lists/new

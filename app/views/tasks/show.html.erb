@@ -8,11 +8,10 @@
   <ul class="task-users">
     <li class="task-user"><%= @task.user_id %></li>
   </ul>
-  <p class=""><%= @task.project_id %></p>
-  <p class=""><%= @task.task_list_id %></p>
+  <p class=""><%= @task.task_list.name %></p>
 </div>
 
 
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_project_task_list_task_path(@task) %> |
+<%= link_to 'Back', project_task_list_tasks_path(project_id: @task.task_list.project, task_list_id: @task.task_list) %>

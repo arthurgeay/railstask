@@ -5,7 +5,9 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.where(task_list_id: params[:task_list_id])
+    @task_list = TaskList.find(params[:task_list_id])
+    @project = Project.find(params[:project_id])
   end
 
   # GET /tasks/1
@@ -15,21 +17,27 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    @project = Project.find(params[:project_id])
+    @task_list = TaskList.find(params[:task_list_id])
     @task = Task.new
   end
 
   # GET /tasks/1/edit
   def edit
+    @project = Project.find(params[:project_id])
+    @task_list = TaskList.find(params[:task_list_id])
+    @task = Task.find(params[:id])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task_list = TaskList.find(params[:task_list_id])
+    @task = @task_list.tasks.new(task_params)
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to project_task_list_tasks_path(project_id: @task_list.project, task_list_id: @task_list), notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -43,7 +51,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to project_task_list_tasks_path(project_id: @task.task_list.project, task_list_id: @task.task_list), notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -57,7 +65,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to project_task_list_tasks_path, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +78,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :date_start, :date_end, :status, :description, :user_id, :project_id, :task_list_id)
+      params.require(:task).permit(:title, :date_start, :date_end, :status, :description, :user_id)
     end
 end

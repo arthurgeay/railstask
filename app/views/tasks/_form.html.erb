@@ -1,10 +1,10 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
+<%= form_with(model: [@project, @task_list, @task], local: true) do |form| %>
+  <% if @task.errors.any? %>
     <div id="error_explanation" class="error-message">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
-        <% task.errors.full_messages.each do |message| %>
+        <% @task.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -39,16 +39,6 @@
   <div class="field">
     <%= form.label :user_id %>
     <%= form.text_field :user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :project_id %>
-    <%= form.text_field :project_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :task_list_id %>
-    <%= form.text_field :task_list_id %>
   </div>
 
   <div class="actions">
