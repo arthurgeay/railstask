@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = User.all
   end
 
   # GET /projects/1
@@ -28,6 +28,12 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+<<<<<<< HEAD
+   
+    @users = User.all
+
+=======
+>>>>>>> 851e1b9eeedd6302bd9d0e6d0c3681e4da5e0ed2
     @project = Project.new(project_params)
     respond_to do |format|
       if @project.save
@@ -53,6 +59,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @users = User.all
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
