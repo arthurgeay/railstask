@@ -5,7 +5,7 @@ class TaskListsController < ApplicationController
   # GET /task_lists
   # GET /task_lists.json
   def index
-    @task_lists = TaskList.all
+    @task_lists = TaskList.where(project_id: params[:project_id])
   end
 
   # GET /task_lists/1
@@ -15,21 +15,25 @@ class TaskListsController < ApplicationController
 
   # GET /task_lists/new
   def new
-    @task_list = TaskList.new
+    @project = Project.find(params[:project_id])
+    @task_list = @project.task_lists.build
   end
 
   # GET /task_lists/1/edit
   def edit
+    @project = Project.find(params[:project_id])
+    @task_list = TaskList.find(params[:id])
   end
 
   # POST /task_lists
   # POST /task_lists.json
   def create
-    @task_list = TaskList.new(task_list_params)
-
+    @project = Project.find(params[:project_id])
+    @task_list = @project.task_lists.new(task_list_params)
+    
     respond_to do |format|
       if @task_list.save
-        format.html { redirect_to @task_list, notice: 'Task list was successfully created.' }
+        format.html { redirect_to project_task_list_path(id: @task_list.id), notice: 'Task list was successfully created.' }
         format.json { render :show, status: :created, location: @task_list }
       else
         format.html { render :new }
@@ -43,7 +47,7 @@ class TaskListsController < ApplicationController
   def update
     respond_to do |format|
       if @task_list.update(task_list_params)
-        format.html { redirect_to @task_list, notice: 'Task list was successfully updated.' }
+        format.html { redirect_to project_task_list_path(id: @task_list.id), notice: 'Task list was successfully updated.' }
         format.json { render :show, status: :ok, location: @task_list }
       else
         format.html { render :edit }
@@ -57,7 +61,7 @@ class TaskListsController < ApplicationController
   def destroy
     @task_list.destroy
     respond_to do |format|
-      format.html { redirect_to task_lists_url, notice: 'Task list was successfully destroyed.' }
+      format.html { redirect_to project_task_lists_path, notice: 'Task list was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
