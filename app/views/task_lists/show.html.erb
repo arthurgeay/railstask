@@ -1,14 +1,36 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @task_list.name %>
-</p>
 
-<p>
-  <strong>Project:</strong>
-  <%= @task_list.project.name %>
-</p>
+<section class="tasklist">
+  <h3 class="tasklist-name"><%= @task_list.name %></h3>
+  <div class="tasklist-container">
+    <div class="task">
+      <p class="task-status">En cours</p>
+      <p class="task-title">Plan de relance du pôle jeunesse</p>
+      <p class="task-duration">2 jours</p>
+      <p class="task-description">descipriton de la tâche avec une faute à description</p>
+      <div class="task-row">
+        <ul class="task-users">
+          <li class="task-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
+          <li class="task-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
+          <li class="task-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+        </ul>
+        <div class="task-complete">
+          <input type="checkbox" id="complete" class="task-complete-check">
+          <label for="complete" class="task-complete-label">
+            <svg width="25" height="25" viewBox="0 0 15 13" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.2413 1.67668L5.6063 10.9997" stroke="black" stroke-width="4"/>
+              <path d="M2.00005 6.00002L8.00019 10.3201" stroke="black" stroke-width="4"/>
+            </svg>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
 
 <%= link_to 'Edit', edit_project_task_list_path(id: @task_list, project_id: @task_list.project_id) %> |
 <%= link_to 'Back', project_task_lists_path %>
