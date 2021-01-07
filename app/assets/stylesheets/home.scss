@@ -221,12 +221,30 @@ label[for=user_remember_me] {
 
 .new {
     &-task {
-        color: $font-white;
-        background-color: $main;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $font-gray;
+        background-color: $gray;
         text-decoration: none;
-        padding: 1rem;
+        padding: 1rem 4rem;
         font-weight: bold;
         border-radius: .5rem;
+        flex: 1;
+        &::before {
+            content: '+';
+            color: $lighter-gray;
+            background-color: $font-gray;
+            border-radius: 50%;
+            padding: 0 .7rem;
+            font-size: 2.7rem;
+            margin-bottom: 1rem;
+            transition: transform .4s cubic-bezier(.17,.67,1,1.83);
+        }
+        &:hover::before {
+            transform: scale(1.05);
+        }
     }
 }
 
@@ -242,6 +260,7 @@ label[for=user_remember_me] {
     flex-direction: column;
     position: relative;
     margin: 1rem 0;
+    margin-right: 1.5rem;
     &::after {
         content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="20" height="32" viewBox="0 0 48 76"><g id="Groupe_1317" data-name="Groupe 1317" transform="translate(-549 -325)">          <circle id="Ellipse_258" data-name="Ellipse 258" cx="9" cy="9" r="9" transform="translate(549 325)"/>         <circle id="Ellipse_259" data-name="Ellipse 259" cx="9" cy="9" r="9" transform="translate(579 325)"/>          <circle id="Ellipse_260" data-name="Ellipse 260" cx="9" cy="9" r="9" transform="translate(549 354)"/>          <circle id="Ellipse_261" data-name="Ellipse 261" cx="9" cy="9" r="9" transform="translate(579 354)"/><circle id="Ellipse_262" data-name="Ellipse 262" cx="9" cy="9" r="9" transform="translate(549 383)"/><circle id="Ellipse_263" data-name="Ellipse 263" cx="9" cy="9" r="9" transform="translate(579 383)"/></g></svg>');
         position: absolute;
@@ -323,8 +342,8 @@ label[for=user_remember_me] {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-left: -0.2rem;
-            transition: .2s ease-in;
+            transition: .2s cubic-bezier(.17,.67,1,1.83);
+            transform: scale(1);
             cursor: pointer;
             svg path {
                 stroke: transparent;
@@ -332,19 +351,48 @@ label[for=user_remember_me] {
         }
         &-check:checked + label {
             background-color: $lighter-gray;
+            transform: scale(1.08);
             svg path {
                 stroke: #7AB6FD;
             }
         }
     }
+    &-add {
+        margin: 1rem 0;
+        display: flex;
+    }
 }
 
 .tasklist {
+    padding-left: 4rem;
     &-title {
         font-size: 1.2rem;
     }
     &-container {
         background-color: $lighter-gray;
         padding: 1rem 2rem;
+        margin-right: 6rem;
+        border-radius: .5rem;
+        display: flex;
+        position: relative;
+
+    }
+}
+
+.delete {
+    position: absolute;
+    top: 1rem;
+    right: -3rem;
+    border: none;
+    background: transparent;
+    width: 2rem;
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    svg {
+        width: 100%;
+        height: 3rem;
     }
 }
