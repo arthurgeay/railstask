@@ -35,8 +35,8 @@ class TaskListsController < ApplicationController
     
     respond_to do |format|
       if @task_list.save
-        format.html { redirect_to project_task_list_path(id: @task_list.id), notice: 'Task list was successfully created.' }
-        format.json { render :show, status: :created, location: @task_list }
+        format.html { redirect_to project_path(@project), notice: 'Task list was successfully created.' }
+        format.json { render project_path(@project), status: :created, location: @task_list }
       else
         format.html { render :new }
         format.json { render json: @task_list.errors, status: :unprocessable_entity }
@@ -47,10 +47,12 @@ class TaskListsController < ApplicationController
   # PATCH/PUT /task_lists/1
   # PATCH/PUT /task_lists/1.json
   def update
+    @project = Project.find(params[:project_id])
+
     respond_to do |format|
       if @task_list.update(task_list_params)
-        format.html { redirect_to project_task_list_path(id: @task_list.id), notice: 'Task list was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task_list }
+        format.html { redirect_to project_path(@project), notice: 'Task list was successfully updated.' }
+        format.json { render project_path(@project), status: :ok, location: @task_list }
       else
         format.html { render :edit }
         format.json { render json: @task_list.errors, status: :unprocessable_entity }
@@ -61,9 +63,11 @@ class TaskListsController < ApplicationController
   # DELETE /task_lists/1
   # DELETE /task_lists/1.json
   def destroy
+    @project = Project.find(params[:project_id])
+
     @task_list.destroy
     respond_to do |format|
-      format.html { redirect_to project_task_lists_path, notice: 'Task list was successfully destroyed.' }
+      format.html { redirect_to project_path(@project), notice: 'Task list was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
