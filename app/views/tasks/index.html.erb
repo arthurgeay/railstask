@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <main>
   
-  <h1>Tasks</h1>
+  <h1>Tasks for <%= @task_list.name %> - <%= @project.name %></h1>
   
   <% @tasks.each do |task| %>
     <div class="task">
