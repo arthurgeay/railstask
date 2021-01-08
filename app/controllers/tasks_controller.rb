@@ -34,11 +34,12 @@ class TasksController < ApplicationController
   def create
     @task_list = TaskList.find(params[:task_list_id])
     @task = @task_list.tasks.new(task_params)
+    @project = Project.find(params[:project_id])
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to project_task_list_tasks_path(project_id: @task_list.project, task_list_id: @task_list), notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to project_path(@project), notice: 'Task was successfully created.' }
+        format.json { render project_path(@project), status: :created, location: @task }
       else
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
