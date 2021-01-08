@@ -14,6 +14,34 @@
         <button class="account-disconnect">Se déconnecter</button>
       </div>
     </div>
+    <div class="menu-projects">
+      <li class="project-item">
+        <div class="project-item-title">
+          <span class="project-item-color" color="#FFC828"></span>
+          <p class="project-item-name">ParkingSoftware</p>
+        </div>
+        <div class="project-item-info">
+          <ul class="project-item-users">
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+          </ul>
+        </div>
+      </li>
+      <li class="project-item">
+        <div class="project-item-title">
+          <span class="project-item-color" color="#7AB6FD"></span>
+          <p class="project-item-name">Trieur Scolaire</p>
+        </div>
+        <div class="project-item-info">
+          <ul class="project-item-users">
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+          </ul>
+        </div>
+      </li>
+    </div>
   </nav>
 
 
@@ -114,3 +142,13 @@
     </button>
   </main>
 </section>
+
+<script defer>
+  const projectsColor = document.querySelectorAll('.project-item-color');
+
+
+  projectsColor.forEach(element => {
+      let color = element.getAttribute('color');
+      element.style.background = color;
+  });
+</script>
