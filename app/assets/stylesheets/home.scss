@@ -737,6 +737,12 @@ nav {
             }
         }
     }
+    .new-tasklist {
+        margin: 0;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        height: 77%;
+    }
 }
 .home-project {
     display: grid;
@@ -748,7 +754,6 @@ nav {
     align-items: center;
     padding: 0 20vw;
     height: 50vw;
-
 }
 
 .show-member {
