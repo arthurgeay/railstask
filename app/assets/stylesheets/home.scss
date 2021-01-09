@@ -166,6 +166,7 @@ label[for=user_remember_me] {
 
 .member {
     &-label {
+        cursor: pointer;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -254,6 +255,7 @@ label[for=user_remember_me] {
         border-radius: .5rem;
         font-size: 1.4rem;
         flex: 1;
+        white-space: nowrap;
         &::before {
             content: '+';
             color: $lighter-gray;
@@ -370,6 +372,7 @@ button.member {
 .task {
     background-color: #7AB6FD;
     width: 25ch;
+    min-width: 25ch;
     border-radius: .5rem;
     padding: 1.5rem;
     padding-bottom: 1rem;
@@ -480,6 +483,8 @@ button.member {
 
 .tasklist {
     margin-top: 4rem;
+    max-width: 85vw;
+    position: relative;
     &-title {
         display: flex;
         position: relative;
@@ -496,12 +501,38 @@ button.member {
     &-container {
         background-color: $lighter-gray;
         padding: 1rem 2rem;
-        margin-right: 6rem;
+        padding-right: 0;
+        margin-right: 2rem;
         border-radius: .5rem;
         display: flex;
         position: relative;
-
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
+}
+::-webkit-scrollbar {
+    height: 8px;
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    padding: 12px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background: $gray; 
+}
+
+::-webkit-scrollbar-button {
+    background: blue;
+    display: none;
+}
+.scroll-wedge {
+    min-width: 2rem;
 }
 
 .edit,
@@ -522,8 +553,8 @@ button.member {
 
 .delete {
     position: absolute;
-    top: 1rem;
-    right: -3rem;
+    top: 4rem;
+    right: -1rem;
 }
 
 .edit{
@@ -724,12 +755,19 @@ nav {
         padding: 2rem;
     }
     .project-item{
-        padding: .5rem;
+        padding: 1.5rem 1rem 1rem 1rem;
         a {
             text-decoration: none;
         }
+        &-title {
+            margin-bottom: 1rem;
+        }
         &-name {
             font-size: 1.4rem;
+            margin: 0;
+        }
+        button {
+            margin-top: 1rem;
         }
         .edit {
             a:first-of-type {
