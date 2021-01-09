@@ -15,10 +15,11 @@
       </div>
     </div>
     <div class="menu-projects">
+    <% @projects.each do |project| %>
       <li class="project-item">
         <div class="project-item-title">
-          <span class="project-item-color" color="#FFC828"></span>
-          <p class="project-item-name">ParkingSoftware</p>
+          <span class="project-item-color" color="<%= project.color %>"></span>
+          <p class="project-item-name"><%= project.name %></p>
         </div>
         <div class="project-item-info">
           <ul class="project-item-users">
@@ -28,19 +29,7 @@
           </ul>
         </div>
       </li>
-      <li class="project-item">
-        <div class="project-item-title">
-          <span class="project-item-color" color="#7AB6FD"></span>
-          <p class="project-item-name">Trieur Scolaire</p>
-        </div>
-        <div class="project-item-info">
-          <ul class="project-item-users">
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
-          </ul>
-        </div>
-      </li>
+      <% end %>
       <div class="space"></div>
       <button class="new-project">
         <%= link_to 'Créer un projet', new_project_path %>
@@ -203,15 +192,7 @@
     </button>
   </main>
 </section>
-
 <script defer>
-  const projectsColor = document.querySelectorAll('.project-item-color');
-
-  projectsColor.forEach(element => {
-      let color = element.getAttribute('color');
-      element.style.background = color;
-  });
-
   //integration button
   const plugin = document.querySelector('#plugin');
   const integr = document.querySelector('.integration');
@@ -224,20 +205,45 @@
     toggle = !toggle;
   });
 
-  let options = document.querySelector('.options');
-  options.addEventListener('click', ()=>{
-      let container = document.createElement('div');
-      let edit = document.createElement('a');
-      let del = document.createElement('a');
-      
-      edit.textContent = "Éditer";
-      del.textContent = "Supprimer";
-      container.className = "window";
-      
-      container.appendChild(edit);
-      container.appendChild(del);
-      options.parentElement.appendChild(container);
+  let slack = document.querySelector('.slack');
+  slack.addEventListener('click', ()=>{
+    fetch(`https://hooks.slack.com/services/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`, {
+     method: 'POST',
+     body: {"text":"Hello, World!"},
+     headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => console.log(res))
   });
-  
+</script>
+<script defer>
+  const projectsColor = document.querySelectorAll('.project-item-color');
+
+  projectsColor.forEach(element => {
+      let color = element.getAttribute('color');
+      element.style.background = color;
+  });
+
+
+  if (document.querySelector('body').contains(document.querySelector('.options'))) {
+
+    let options = document.querySelector('.options');
+    options.addEventListener('click', ()=>{
+        let container = document.createElement('div');
+        let edit = document.createElement('a');
+        let del = document.createElement('a');
+        
+        edit.textContent = "Éditer";
+        del.textContent = "Supprimer";
+        container.className = "window";
+        
+        container.appendChild(edit);
+        container.appendChild(del);
+        options.parentElement.appendChild(container);
+    });
+    
+  }
 
 </script>

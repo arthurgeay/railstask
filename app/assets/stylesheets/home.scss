@@ -315,7 +315,6 @@ label[for=user_remember_me] {
         background-color: $lighter-gray;
         margin: 4rem 6rem 4rem 0;
         display: flex;
-        flex: 1;
         padding: 1rem;
         border-radius: .5rem;
         transition: transform .2s cubic-bezier(.17,.67,1,1.83);
@@ -679,10 +678,20 @@ button.member {
         outline: none;
         border-radius: 50%;
         width: 1.8rem;
-        height: 2rem;
+        height: 1.7rem;
         margin: 0;
         margin-right: 1rem;
         margin-top: 0.5rem;
+        &::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+        }
+        &::-webkit-color-swatch-wrapper {
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+        }
     }
     .edit {
         margin-top: 0.5rem;
@@ -701,6 +710,7 @@ button.member {
 
 .home {
     display: flex;
+    min-height: 100%;
 }
 nav {
     background-color: $main;
@@ -854,6 +864,7 @@ nav {
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
         height: 77%;
+        flex: 1;
     }
 }
 .home-project {

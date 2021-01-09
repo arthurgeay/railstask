@@ -1,10 +1,15 @@
+require 'httparty'
+
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   
 
+  
+
   # GET /projects
   # GET /projects.json
+  
   def index
     @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}})
     redirect_to ''
@@ -13,6 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
   end
 
   def enforce_current_profile
@@ -39,11 +45,14 @@ class ProjectsController < ApplicationController
     @users = User.all
 
     @project = Project.new(project_params)
+    logger.debug "AAAAA: #{project_params['name']}"
     respond_to do |format|
       if @project.save
+        response = HTTParty.post('https://hooks.slack.com/services/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',
+        :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
+        :body => { :text => "Le projet " + project_params['name'] + " à été crée !"}.to_json)
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
-        
         # @project_admin = ProjectUser.new()
         # @project_admin.users_id = current_user.id
         # @project_admin.role = "Administrator"
