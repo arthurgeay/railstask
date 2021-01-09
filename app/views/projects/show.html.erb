@@ -171,6 +171,7 @@
                 </label>
               </div>
             </div>
+            <span class="options"></span>
           </div>
           <% end %>
           <div class="space"></div>
@@ -222,4 +223,21 @@
     else integr.style.display = "flex";
     toggle = !toggle;
   });
+
+  let options = document.querySelector('.options');
+  options.addEventListener('click', ()=>{
+      let container = document.createElement('div');
+      let edit = document.createElement('a');
+      let del = document.createElement('a');
+      
+      edit.textContent = "Éditer";
+      del.textContent = "Supprimer";
+      container.className = "window";
+      
+      container.appendChild(edit);
+      container.appendChild(del);
+      options.parentElement.appendChild(container);
+  });
+  
+
 </script>

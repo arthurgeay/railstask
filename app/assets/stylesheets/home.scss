@@ -436,6 +436,34 @@ button.member {
         opacity: 0.4;
         filter: invert(1);
     }
+    .options {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        top: 1.5rem;
+        right: .7rem;
+        z-index: 111;
+        cursor: pointer;
+    }
+    .window {
+        position: absolute;
+        top: 3.5rem;
+        right: .7rem;
+        background-color: $light-gray;
+        padding: 0.7rem;
+        border-radius: .5rem;
+        z-index: 112;
+        a {
+            display: block;
+            font-weight: bold;
+            padding: 0.2rem 0;
+            cursor: pointer;
+        }
+    }
+
+
+
+
     p {
         margin-top: 0;
         margin-bottom: 0.4rem;
