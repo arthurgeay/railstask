@@ -31,6 +31,10 @@ body {
     height: 100%;
 }
 
+a {
+    text-decoration: none;
+    color: $main;
+}
 
 input {
     border: none;
@@ -59,6 +63,10 @@ input {
 
 form {
     width: 30rem;
+    & + a {
+        color: $font-black;
+        font-weight: bold;
+    }
 }
 
 textarea {
@@ -382,6 +390,7 @@ button.member {
     }
 }
 
+
 .settings {
     border: 0;
     background: transparent;
@@ -389,14 +398,20 @@ button.member {
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
-    align-items: center;
-    padding: 1rem;
+    margin-top: .5rem;
     cursor: pointer;
     svg {
         width: 1.5rem;
         height: 1.5rem;
         filter: invert(1);
-        margin-right: 1rem;
+        margin-right: .5rem;
+    }
+    a {
+        color: white;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
     }
 }
 //Styles for task
