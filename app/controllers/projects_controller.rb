@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}})
-
+    redirect_to ''
   end
 
   # GET /projects/1

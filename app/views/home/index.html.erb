@@ -1,6 +1,48 @@
-<main>
+<main class="main-home">
     <h1>Accueil</h1>
 
 
+    <ul class="home-project">
+        <% @projects.each do |project| %>
+            <li class="project-item">
+            <a href="<%= project_path(project) %>">
+                <div class="project-item-title">
+                    <span class="project-item-color" color="<%= project.color %>"></span>
+                    <p class="project-item-name"><%= project.name %></p>
+                </div>
+                <div class="project-item-info">
+                    <ul class="project-item-users">
+                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
+                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
+                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+                    </ul>
+                </div>
+                <button class="edit">
+                    <%= link_to edit_project_path(id:project) do %>
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 383.947 383.947" style="enable-background:new 0 0 383.947 383.947;" xml:space="preserve">
+                        <g><g><g><polygon points="0,303.947 0,383.947 80,383.947 316.053,147.893 236.053,67.893"/><path d="M377.707,56.053L327.893,6.24c-8.32-8.32-21.867-8.32-30.187,0l-39.04,39.04l80,80l39.04-39.04 C386.027,77.92,386.027,64.373,377.707,56.053z"/></g></g></g>
+                    </svg>
+                    Éditer
+                    <% end %>
+                </button>
+                <button class="delete">
+                <%= link_to project, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <svg width="165" height="202" viewBox="0 0 165 202" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0)">
+                        <path d="M20.625 176.75C20.625 190.669 29.8749 202 41.2498 202H123.75C135.125 202 144.375 190.669 144.375 176.75V50.5H20.625V176.75Z" fill="#C6C6C6"/>
+                        <path d="M103.125 12.6249V0H61.8749V12.6249H10.3125V37.8747H154.687V12.6249H103.125Z" fill="#C6C6C6"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0">
+                        <rect width="165" height="202" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                    <% end %>
+                </button>
+            </a>
+            </li>
+        <% end %>
+    </ul>
 
 </main>
