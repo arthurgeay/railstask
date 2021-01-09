@@ -39,6 +39,7 @@ input {
     font-size: 1rem;
     padding: 0.5rem;
     margin-bottom: 1rem;
+    width: 100%;
     &[type=password],
     &[type=email] {
         margin-bottom: 1rem;
@@ -54,6 +55,15 @@ input {
     &[type=checkbox] {
         filter: hue-rotate(160deg) brightness(80%);
     }
+}
+
+form {
+    width: 30rem;
+}
+
+textarea {
+    width: calc(100% - 1rem);
+    min-height: 10rem;
 }
 
 textarea,
@@ -138,8 +148,29 @@ main {
         flex-direction: column;
         padding: 0 4rem;
     }
+    &.center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
+.field-row {
+    display: flex;
+    justify-content: space-between;
+}
+.field.member {
+    flex-direction: row;
+    label::before {
+        padding: 0 .7rem;
+        padding-top: .2rem;
+    }
+}
+.actions input {
+    display: block;
+    margin: 2rem auto;
+    
+}
 
 //Specific case of labels and inputs
 label[for=user_remember_me] {
@@ -157,7 +188,7 @@ label[for=user_remember_me] {
 
 .subtitle-action {
     color: $font-black;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-decoration: none;
     font-weight: bold;
     display: block;

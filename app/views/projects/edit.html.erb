@@ -1,6 +1,7 @@
-<h1>Editing Project</h1>
-
-<%= render 'form', project: @project %>
-
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<header>
+  <h2>Éditer le projet</h2>
+</header>
+<main class="center">    
+    <%= render 'form', project: @project %>
+    <%= link_to 'Back', projects_path, class:"subtitle-action" %>
+</main>
