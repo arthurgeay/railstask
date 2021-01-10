@@ -23,9 +23,9 @@
         </div>
         <div class="project-item-info">
           <ul class="project-item-users">
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+          <% project.users.each do |user| %>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"><%= user.username %></li>
+          <% end %>
           </ul>
         </div>
       </li>
@@ -105,9 +105,9 @@
             </div>
           </button>
           <div class="show-member">
-              <li class="show-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
-              <li class="show-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
-              <li class="show-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+          <% @project.users.each do |user| %>
+              <li class="show-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"><%= user.username %></li>
+          <% end %>
           </div>
           <button class="member">
             <label for="addmember" class="member-label">Add member</label>
@@ -146,9 +146,9 @@
             <p class="task-description"><%= task.description %></p>
             <div class="task-row">
               <ul class="task-users">
-                <li class="task-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
-                <li class="task-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
-                <li class="task-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+              <% task.users.each do |user| %>
+                <li class="task-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"><%= user.username %></li>
+              <% end %>
               </ul>
               <div class="task-complete">
                 <input type="checkbox" id="complete<%= index.to_s + tli.to_s %>" class="task-complete-check">

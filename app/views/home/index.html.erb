@@ -12,9 +12,9 @@
                 </div>
                 <div class="project-item-info">
                     <ul class="project-item-users">
-                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"></li>
-                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"></li>
-                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"></li>
+                    <% project.users.each do |user| %>
+                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"><%= user.username %></li>
+                    <% end %>
                     </ul>
                 </div>
                 <button class="edit">
