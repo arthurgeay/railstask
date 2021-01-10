@@ -4,9 +4,6 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   
-
-  
-
   # GET /projects
   # GET /projects.json
   
@@ -45,12 +42,12 @@ class ProjectsController < ApplicationController
     @users = User.all
 
     @project = Project.new(project_params)
-    logger.debug "AAAAA: #{project_params['name']}"
+
     respond_to do |format|
       if @project.save
-        response = HTTParty.post('https://hooks.slack.com/services/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',
+        response = HTTParty.post('https://hooks.slack.com/services/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',
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-        :body => { :text => "Le projet " + project_params['name'] + " à été crée !"}.to_json)
+        :body => { :text => "Le projet『" + project_params['name'] + "』à été crée ! 🎉"}.to_json)
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
         # @project_admin = ProjectUser.new()

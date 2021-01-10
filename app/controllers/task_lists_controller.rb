@@ -1,3 +1,5 @@
+require 'httparty'
+
 class TaskListsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_task_list, only: [:show, :edit, :update, :destroy]
@@ -32,9 +34,12 @@ class TaskListsController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @task_list = @project.task_lists.new(task_list_params)
-    
+
     respond_to do |format|
       if @task_list.save
+        response = HTTParty.post('https://hooks.slack.com/services/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',
+        :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
+      :body => { :text => "🗂 Une nouvelle liste de tâche【" + task_list_params['name'] + "】à été crée dans le projet『" + @project['name'] + "』! 🎉"}.to_json)
         format.html { redirect_to project_path(@project), notice: 'Task list was successfully created.' }
         format.json { render project_path(@project), status: :created, location: @task_list }
       else

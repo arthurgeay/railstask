@@ -35,9 +35,13 @@ class TasksController < ApplicationController
     @task_list = TaskList.find(params[:task_list_id])
     @task = @task_list.tasks.new(task_params)
     @project = Project.find(params[:project_id])
+    logger.debug "AAAAA: #{task_params}"
 
     respond_to do |format|
       if @task.save
+        response = HTTParty.post('https://hooks.slack.com/services/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',
+        :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
+        :body => { :text => "📄 Une nouvelle tâche「" + task_params['title'] + "」à été crée dans『" + @task_list['name'] + "』-【" + @project['name'] + "】! 🎉" }.to_json)
         format.html { redirect_to project_path(@project), notice: 'Task was successfully created.' }
         format.json { render project_path(@project), status: :created, location: @task }
       else
