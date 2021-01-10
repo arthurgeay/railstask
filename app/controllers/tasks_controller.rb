@@ -18,6 +18,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @project = Project.find(params[:project_id])
+    @users = @project.users
     @task_list = TaskList.find(params[:task_list_id])
     @task = Task.new
   end
@@ -25,6 +26,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @project = Project.find(params[:project_id])
+    @users = @project.users
     @task_list = TaskList.find(params[:task_list_id])
     @task = Task.find(params[:id])
   end
@@ -35,7 +37,6 @@ class TasksController < ApplicationController
     @task_list = TaskList.find(params[:task_list_id])
     @task = @task_list.tasks.new(task_params)
     @project = Project.find(params[:project_id])
-    logger.debug "AAAAA: #{task_params}"
 
     respond_to do |format|
       if @task.save
@@ -85,6 +86,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :duration, :status, :description, :user_id)
+      params.require(:task).permit(:title, :duration, :status, :description, user_ids:[])
     end
 end
