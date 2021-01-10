@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     @task_list = TaskList.find(params[:task_list_id])
     @task = @task_list.tasks.new(task_params)
     @project = Project.find(params[:project_id])
-
+    
     respond_to do |format|
       if @task.save
         response = HTTParty.post('https://hooks.slack.com/services/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',
