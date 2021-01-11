@@ -4,12 +4,9 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :projects do
+    resources :project_users
     resources :task_lists do
       resources :tasks
     end
   end
-
-  get '/integration/:service', to: 'integration#new', as: 'integration_service'
-  post '/integration', to: 'integration#create', as: 'integration_service_create'
-
 end
