@@ -11,7 +11,9 @@
       <img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6" class="account-picture">
       <div class="account">
         <p class="account-name">Arthur Geay</p>
-        <button class="account-disconnect">Se déconnecter</button>
+        <button class="account-disconnect">
+          <a href="<%= destroy_user_session_path %>" data-method="delete" aria-label="">Se déconnecter</a>
+        </button>
       </div>
     </div>
     <div class="menu-projects">
