@@ -41,9 +41,20 @@ class TasksController < ApplicationController
     
     respond_to do |format|
       if @task.save
-        response = HTTParty.post('https://hooks.slack.com/services/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',
+        response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
         :body => { :text => "📄 Une nouvelle tâche「" + task_params['title'] + "」à été crée dans『" + @task_list['name'] + "』-【" + @project['name'] + "】! 🎉" }.to_json)
+
+        client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
+        client.execute do |builder|
+          builder.content = ' 📄 Nouvelle tâche !'
+          builder.add_embed do |embed|
+            embed.title = "Projet: " + @project.name + " - Liste: " + @task_list.name + " - Tâche: " + @task.title
+            embed.description = @task.description
+            embed.timestamp = Time.now
+          end
+        end
+
         format.html { redirect_to project_path(@project), notice: 'Task was successfully created.' }
         format.json { render project_path(@project), status: :created, location: @task }
       else

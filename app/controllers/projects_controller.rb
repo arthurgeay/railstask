@@ -1,6 +1,5 @@
 require 'httparty'
 require 'discordrb/webhooks'
-WEBHOOK_URL = 'https://discord.com/api/webhooks/798253330799132673/_u4f7RIIl1UNyvkMowxEnRoAom7Dn50uojNdAWGSZK_fqzcnqvvZFssEM5YE3ZPnXfI_'.freeze
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
@@ -58,7 +57,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        response = HTTParty.post('https://hooks.slack.com/services/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',
+        response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
         :body => { :text => "Le projet『" + project_params['name'] + "』à été crée ! 🎉"}.to_json)
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -73,9 +72,9 @@ class ProjectsController < ApplicationController
         # puts @project_member.inspect
 
         
-        client = Discordrb::Webhooks::Client.new(url: WEBHOOK_URL)
+        client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
         client.execute do |builder|
-          builder.content = 'New project !'
+          builder.content = '🎉 Nouveau Projet !'
           builder.add_embed do |embed|
             embed.title = @project.name
             embed.description = @project.description
