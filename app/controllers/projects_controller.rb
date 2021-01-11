@@ -19,11 +19,11 @@ class ProjectsController < ApplicationController
     @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
   end
 
-  #def enforce_current_profile
-  #  unless @profile && @profile.user == current_user.id
-  #    format.html { redirect_to @project, notice: 'This is not one of your projects' }
-  #  end
-  #end
+  def enforce_current_profile
+    unless @profile && @profile.user == current_user.id
+      format.html { redirect_to @project, notice: 'This is not one of your projects' }
+    end
+  end
 
   # GET /projects/new
   def new
