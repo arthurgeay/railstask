@@ -17,6 +17,7 @@
     <div class="menu-projects">
     <% @projects.each do |project| %>
       <li class="project-item">
+      <a href="<%= project_path(project) %>">
         <div class="project-item-title">
           <span class="project-item-color" color="<%= project.color %>"></span>
           <p class="project-item-name"><%= project.name %></p>
@@ -28,6 +29,7 @@
           <% end %>
           </ul>
         </div>
+        </a>
       </li>
       <% end %>
       <div class="space"></div>
