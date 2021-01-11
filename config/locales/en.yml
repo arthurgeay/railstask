@@ -34,3 +34,4 @@ en:
   helpers:
     submit:
       create: Crée %{model}
+      update: Sauvegarder les modifications
