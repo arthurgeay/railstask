@@ -16,15 +16,25 @@ $font-white: #FFF;
 $font-gray: #999999;
 $font-black: #000;
 
-$shdw: 1px 2px 4px rgba(0, 0, 0, 0.08);
+$shdw: 1px 2px 6px -1px rgba(0, 0, 0, 0.2);
+
+html {
+    height: 100%;
+}
 
 body {
     font-family: sans-serif;
     background-color: $background;
     border: 0;
     margin: 0;
+    zoom: 90%;
+    height: 100%;
 }
 
+a {
+    text-decoration: none;
+    color: $main;
+}
 
 input {
     border: none;
@@ -33,6 +43,7 @@ input {
     font-size: 1rem;
     padding: 0.5rem;
     margin-bottom: 1rem;
+    width: 100%;
     &[type=password],
     &[type=email] {
         margin-bottom: 1rem;
@@ -48,6 +59,19 @@ input {
     &[type=checkbox] {
         filter: hue-rotate(160deg) brightness(80%);
     }
+}
+
+form {
+    width: 30rem;
+    & + a {
+        color: $font-black;
+        font-weight: bold;
+    }
+}
+
+textarea {
+    width: calc(100% - 1rem);
+    min-height: 10rem;
 }
 
 textarea,
@@ -91,6 +115,7 @@ label {
         font-size: 1.4rem;
     }
 }
+#notice,
 .notice,
 .alert {
     position: absolute;
@@ -125,8 +150,35 @@ header {
 
 main {
     padding: 1rem;
+    width: 100%;
+    &.column{
+        display: flex;
+        flex-direction: column;
+        padding: 0 4rem;
+    }
+    &.center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
+.field-row {
+    display: flex;
+    justify-content: space-between;
+}
+.field.member {
+    flex-direction: row;
+    label::before {
+        padding: 0 .7rem;
+        padding-top: .2rem;
+    }
+}
+.actions input {
+    display: block;
+    margin: 2rem auto;
+    
+}
 
 //Specific case of labels and inputs
 label[for=user_remember_me] {
@@ -144,7 +196,7 @@ label[for=user_remember_me] {
 
 .subtitle-action {
     color: $font-black;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-decoration: none;
     font-weight: bold;
     display: block;
@@ -153,6 +205,7 @@ label[for=user_remember_me] {
 
 .member {
     &-label {
+        cursor: pointer;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -183,17 +236,25 @@ label[for=user_remember_me] {
     border: none;
     box-shadow: $shdw;
     cursor: pointer;
+    position: relative;
+    background-color: $lighter-gray;
+    margin-right: 1rem;
     svg {
         width: 2rem;
         height: 2rem;
     }
 }
 .integration {
+    z-index: 100;
     display: flex;
     background-color: $lighter-gray;
     width: fit-content;
     border-radius: .5rem;
     box-shadow: $shdw;
+    position: absolute;
+    right: 0;
+    bottom: -1rem;
+    transform: translateY(100%);
     &-card {
         cursor: pointer;
         background-color: $lighter-gray;
@@ -219,3 +280,623 @@ label[for=user_remember_me] {
     }
 }
 
+.new {
+    &-task {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $font-gray;
+        background-color: $gray;
+        text-decoration: none;
+        padding: 1rem 2.5rem;
+        font-weight: bold;
+        border-radius: .5rem;
+        font-size: 1.4rem;
+        flex: 1;
+        white-space: nowrap;
+        &::before {
+            content: '+';
+            color: $lighter-gray;
+            background-color: $font-gray;
+            border-radius: 50%;
+            padding: 0 .7rem;
+            font-size: 2.7rem;
+            margin-bottom: 1rem;
+            transition: transform .4s cubic-bezier(.17,.67,1,1.83);
+        }
+        &:hover::before {
+            transform: scale(1.05);
+        }
+    }
+    &-tasklist {
+        border: none;
+        color: $font-gray;
+        background-color: $lighter-gray;
+        margin: 4rem 6rem 4rem 0;
+        display: flex;
+        padding: 1rem;
+        border-radius: .5rem;
+        transition: transform .2s cubic-bezier(.17,.67,1,1.83);
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.01);
+        }
+        a {
+            color: $font-gray;
+            font-size: 1.6rem;
+            text-decoration: none;
+            font-weight: bold;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &::before {
+                content: '+';
+                color: $lighter-gray;
+                background-color: $font-gray;
+                border-radius: 50%;
+                padding: 0 .7rem;
+                font-size: 2.7rem;
+                margin-right: 1rem;
+            }
+        }
+    }
+    &-project {
+        border: none;
+        background-color: $light-gray;
+        border-radius: .5rem;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        padding-right: 1rem;
+        margin-bottom: .5rem;
+        &::before {
+            content: '+';
+            color: $main;
+            border-radius: 50%;
+            padding: 0 .5rem;
+            font-size: 2rem;
+            margin-right: .2rem;
+        }
+        a {
+            color: $main;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+    }
+}
+button.member {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    width: 4.5rem;
+    height: 4.5rem;
+    position: relative;
+    .member-label {
+        position: absolute;
+        top: 0;
+        &::before {
+            font-size: 4rem;
+            padding: 0 1.2rem;
+        }
+    }
+    select {
+        display: none;
+    }
+}
+
+
+.settings {
+    border: 0;
+    background: transparent;
+    color: $font-white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    margin-top: .5rem;
+    cursor: pointer;
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        filter: invert(1);
+        margin-right: .5rem;
+    }
+    a {
+        color: white;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+    }
+}
+//Styles for task
+.task {
+    background-color: #7AB6FD;
+    width: 25ch;
+    min-width: 25ch;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 1rem 0;
+    margin-right: 1.5rem;
+    &::after {
+        content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="20" height="32" viewBox="0 0 48 76"><g id="Groupe_1317" data-name="Groupe 1317" transform="translate(-549 -325)">          <circle id="Ellipse_258" data-name="Ellipse 258" cx="9" cy="9" r="9" transform="translate(549 325)"/>         <circle id="Ellipse_259" data-name="Ellipse 259" cx="9" cy="9" r="9" transform="translate(579 325)"/>          <circle id="Ellipse_260" data-name="Ellipse 260" cx="9" cy="9" r="9" transform="translate(549 354)"/>          <circle id="Ellipse_261" data-name="Ellipse 261" cx="9" cy="9" r="9" transform="translate(579 354)"/><circle id="Ellipse_262" data-name="Ellipse 262" cx="9" cy="9" r="9" transform="translate(549 383)"/><circle id="Ellipse_263" data-name="Ellipse 263" cx="9" cy="9" r="9" transform="translate(579 383)"/></g></svg>');
+        position: absolute;
+        width: 2rem;
+        top: 1.5rem;
+        right: .7rem;
+        opacity: 0.4;
+        filter: invert(1);
+    }
+    .options {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        top: 1.5rem;
+        right: .7rem;
+        z-index: 111;
+        cursor: pointer;
+    }
+    .window {
+        position: absolute;
+        top: 3.5rem;
+        right: .7rem;
+        background-color: $light-gray;
+        padding: 0.7rem;
+        border-radius: .5rem;
+        z-index: 112;
+        a {
+            display: block;
+            font-weight: bold;
+            padding: 0.2rem 0;
+            cursor: pointer;
+        }
+    }
+
+
+
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0.4rem;
+        color: $font-white;
+    }
+    &-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding-right: 2rem;
+    }
+    &-status {
+        font-size: 0.6rem;
+    }
+    &-duration {
+        font-size: 0.6rem;
+        background-color: $font-white;
+        border-radius: 2.5rem;
+        color: #7AB6FD!important;
+        width: fit-content;
+        padding: 0.3rem 0.5rem;
+        margin-bottom: 1rem!important;
+    }
+    &-description {
+        opacity: 0.7;
+        font-size: 0.9rem;
+        margin-bottom: .8rem!important;
+    }
+    &-user {
+        font-size: 0.8rem;
+        padding-right: .5rem;
+        display: flex;
+        align-items: flex-end;
+        img {
+            border-radius: 50%;
+            width: 2.2rem;
+        }
+        &s{
+            display: flex;
+            list-style-type: none;
+        }
+
+    }
+    &-commands {
+        position: absolute;
+        right: -4rem;
+        display: flex;
+        flex-direction: column;
+
+    }
+    ul {
+        padding-inline-start: 0;
+        margin-block-start: 0;
+        margin-block-end: 0;
+    }
+    &-row {
+        display: flex;
+        justify-content: space-between;
+    }
+    &-complete {
+        &-check { height: 1px;}
+        &-label {
+            background-color: transparent;
+            width: 2rem;
+            height: 2rem;
+            border-radius: .3rem;
+            margin-bottom: 0;
+            border: .3rem solid $lighter-gray;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s cubic-bezier(.17,.67,1,1.83);
+            cursor: pointer;
+            svg path {
+                stroke: transparent;
+            }
+        }
+        &-check:checked + label {
+            background-color: $lighter-gray;
+            transform: scale(1.08);
+            svg path {
+                stroke: #7AB6FD;
+            }
+        }
+    }
+    &-add {
+        margin: 1rem 0;
+        display: flex;
+    }
+}
+
+.tasklist {
+    margin-top: 4rem;
+    max-width: 85vw;
+    position: relative;
+    &-title {
+        display: flex;
+        position: relative;
+        width: fit-content;
+    }
+    &-name {
+        font-size: 2rem;
+        font-weight: normal;
+        display: inline;
+        margin-top: 0;
+        margin-right: 2rem;
+        margin-bottom: 1rem;
+    }
+    &-container {
+        background-color: $lighter-gray;
+        padding: 1rem 2rem;
+        padding-right: 0;
+        margin-right: 2rem;
+        border-radius: .5rem;
+        display: flex;
+        position: relative;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+::-webkit-scrollbar {
+    height: 8px;
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    border-radius: 0;
+    padding: 12px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background: $gray; 
+}
+
+::-webkit-scrollbar-button {
+    background: blue;
+    display: none;
+}
+.scroll-wedge {
+    min-width: 2rem;
+}
+
+.edit,
+.delete {
+    border: none;
+    background: transparent;
+    width: 2rem;
+    a {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    svg {
+        width: 100%;
+        height: 3rem;
+    }
+}
+
+.delete {
+    position: absolute;
+    top: 4rem;
+    right: -1rem;
+}
+
+.edit{
+    width: 6rem;
+    height: 2rem;
+}
+.edit svg {
+    height: 2rem;
+    width: 25%;
+    margin-right: 0.5rem;
+}
+.edit a {
+    display: flex;
+    align-items: flex-end;
+    color: black;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 30px;
+    filter: invert(8%) sepia(97%) saturate(7492%) hue-rotate(13deg) brightness(98%) contrast(114%);
+}
+
+
+
+//Projet
+.project {
+    &-title {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 3rem;
+        & > div {
+            display: flex;
+            align-items: center;
+
+        }
+    }
+    &-name {
+        margin: 0;
+        margin-right: 1rem;
+        font-size: 3rem;
+        font-weight: 700;
+        max-width: 25ch;
+        color: $main;
+    }
+    &-color {
+        padding: 0;
+        background-color: transparent;
+        outline: none;
+        border-radius: 50%;
+        width: 1.8rem;
+        height: 1.7rem;
+        margin: 0;
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+        &::-webkit-color-swatch {
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+        }
+        &::-webkit-color-swatch-wrapper {
+            border: none;
+            border-radius: 50%;
+            padding: 0;
+        }
+    }
+    .edit {
+        margin-top: 0.5rem;
+    }
+    &-description {
+        opacity: 0.5;
+        font-size: 1.2rem;
+        p {
+            margin-top: 0.5rem;
+        }
+    }
+    &-controls {
+        margin-right: 6rem;
+    }
+}
+
+.home {
+    display: flex;
+    min-height: 100%;
+}
+nav {
+    background-color: $main;
+    width: 20vw;
+    min-width: 14rem;
+    display: flex;
+    flex-direction: column;
+}
+.menu {
+    &-logo {
+        display: flex;
+        justify-content: center;
+        svg{
+            height: 8rem;
+            width: 10rem;
+        }
+    }
+    &-account {
+        display: flex;
+        align-items: center;
+        background-color: $lighter-gray;
+        padding: 1rem 0;
+    }
+    &-projects {
+        padding: 1rem;
+        padding-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+    }
+}
+.space {
+    flex: 1;
+}
+
+.account {
+    &-picture {
+        border-radius: 50%;
+        width: 2.8rem;
+        height: 2.8rem;
+        margin: 0 1rem;
+    }
+    &-name {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: $main;
+        font-size: 1rem;
+        font-weight: bolder;
+    }
+    &-disconnect {
+        border: none;
+        padding: 0.5rem;
+        font-size: 0.5rem;
+        cursor: pointer;
+        background-color: $gray;
+        transition: .2s cubic-bezier(.17,.67,1,1.83);
+        &:hover {
+            transform: scale(1.08);
+            background-color: darken($light-gray, 10);
+        }
+    }
+}
+
+
+.project-item {
+    background-color: $light-gray;
+    border-radius: .5rem;
+    list-style-type: none;
+    margin-bottom: .7rem;
+    cursor: pointer;
+    margin-right: .5rem;
+    transition: .2s ease-out;
+    position: relative;
+    max-width: 20rem;
+    &:hover {
+        margin-right: 0;
+        background-color: lighten($light-gray, 10);
+    }
+    &-title {
+        display: flex;
+        align-items: center;
+    }
+    &-color {
+        border-radius: 50%;
+        background-color: #000;
+        width: 1rem;
+        height: 1rem;
+        margin: 0 1rem;
+    }
+    &-name {
+        font-size: .8rem;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    &-users {
+        @extend .task-users;
+        margin: 0;
+        padding: .7rem;
+        padding-top: 0;
+    }
+    &-user {
+        @extend .task-user;
+        img {
+            width: 1.7rem;
+        }
+    }
+    .delete {
+        top: unset;
+        position: static;
+        height: 2rem;
+        svg {
+            height: 2rem;
+        }
+    }
+}
+
+.main-home {
+    background-color: $main;
+    height: 100%;
+    width: auto;
+    padding: 0;
+    h1 {
+        margin-top: 0;
+        color: $font-white;
+        padding: 2rem;
+    }
+    .project-item{
+        padding: 1.5rem 1rem 1rem 1rem;
+        a {
+            text-decoration: none;
+        }
+        &-title {
+            margin-bottom: 1rem;
+        }
+        &-name {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+        button {
+            margin-top: 1rem;
+        }
+        .edit {
+            a:first-of-type {
+                display: none;
+            }
+        }
+    }
+    .new-tasklist {
+        margin: 0;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        height: 77%;
+        flex: 1;
+    }
+}
+.home-project {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 20rem);
+    grid-auto-rows: min-content;
+    gap: 2rem;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 0 20vw;
+    height: 50vw;
+}
+
+.show-member {
+    border-radius: 2rem;
+    background-color: $light-gray;
+    box-shadow: $shdw;
+    display: flex;
+    padding: .75rem 1rem;
+    margin-right: 1rem;
+    li {
+        border: 2px solid $main;
+        border-radius: 50%;
+        width: 2.25rem;
+        height: 2.25rem;
+        list-style-type: none;
+        margin: 0 .3rem;
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+}

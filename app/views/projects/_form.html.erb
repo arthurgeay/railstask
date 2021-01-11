@@ -11,9 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :color %>
+      <input type="color" class="form-control"  id="color" name="project[color]">
+    </div>
   </div>
 
   <div class="field">
@@ -21,17 +28,13 @@
     <%= form.text_area :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :color %>
-    <input type="color" class="form-control"  id="color" name="project[color]">
-    
-  </div>
+
 
         
   <div class="field member">
     <label for="exampleDataList" class="form-label member-label">Add member</label>
     <select id="datalistOptions" class="member-select" name="project[project_users_attributes][][user_id]">
-      <option value"">
+      <option hidden selected disabled>Choissisez un membre</option>
       <% @users.each do |user| %>
         <option class="form-control" value="<%= user.id %>"><%= user.email %></option>
       <% end %>

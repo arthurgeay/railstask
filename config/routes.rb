@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :projects do
-    resources :task_lists
+    resources :task_lists do
+      resources :tasks
+    end
   end
-  resources :tasks
+
 
 end
