@@ -13,15 +13,13 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    # #profile -> tab -> id <- current 
+    # unless @profile == current_user.id
+    #   format.html { redirect_to @project, notice: 'This is not one of your projects' }
+    # end
   end
 
-  def enforce_current_profile
-    unless @profile && @profile.user == current_user.id
-      format.html { redirect_to @project, notice: 'This is not one of your projects' }
-    end
-  end
-
-  # GET /projects/new
+  # GET /
   def new
     @project = Project.new
     @users = User.all
