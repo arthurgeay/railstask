@@ -1,4 +1,5 @@
 require 'httparty'
+require 'discordrb'
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
@@ -69,6 +70,14 @@ class ProjectsController < ApplicationController
       
         # @project_member = ProjectUser.new()
         # puts @project_member.inspect
+
+        bot = Discordrb::Bot.new token: 'Nzk4MjM4MDYyMjc0NDEyNTQ0.X_yHIA.cf1DFxrtHattPLdmJZ_2vJ-Hixw', client_id: 798238062274412544
+
+        bot.message(with_text: 'Ping!') do |event|
+          event.respond 'Pong!'
+        end
+        
+        bot.run
 
       else
         format.html { render :new }
