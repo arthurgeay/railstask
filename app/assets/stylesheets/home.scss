@@ -187,6 +187,16 @@ label[for=user_remember_me] {
     margin-bottom: 0;
 }
 
+#user_remember_me,
+input[type=checkbox] {
+    width: auto;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    & + label {
+        margin-bottom: 0;
+    }
+}
+
 .forgot-password {
     text-decoration: none;
     color: $main;
@@ -446,12 +456,18 @@ button.member {
     }
     .window {
         position: absolute;
+        display: block;
         top: 3.5rem;
         right: .7rem;
         background-color: $light-gray;
         padding: 0.7rem;
         border-radius: .5rem;
         z-index: 112;
+        transition: opacity .2s ease-out;
+        &.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
         a {
             display: block;
             font-weight: bold;
@@ -580,6 +596,7 @@ button.member {
         display: flex;
         position: relative;
         overflow-x: scroll;
+        min-height: 250px;
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
