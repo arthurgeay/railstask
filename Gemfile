@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
+gem 'wdm', '>= 0.1.0'
+gem 'cancancan'
 ruby '2.7.2'
 gem 'listen', '~> 3.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -6,20 +6,23 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}})
-
+    #@projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}})
+    @projects = Project.all
   end
 
+  
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @project = Project.find(params[:id])
+    authorize! :read, @project
   end
 
-  def enforce_current_profile
-    unless @profile && @profile.user == current_user.id
-      format.html { redirect_to @project, notice: 'This is not one of your projects' }
-    end
-  end
+  #def enforce_current_profile
+  #  unless @profile && @profile.user == current_user.id
+  #    format.html { redirect_to @project, notice: 'This is not one of your projects' }
+  #  end
+  #end
 
   # GET /projects/new
   def new
