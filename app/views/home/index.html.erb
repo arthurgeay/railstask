@@ -5,7 +5,7 @@
     <ul class="home-project">
         <% @projects.each do |project| %>
             <li class="project-item">
-            <a href="<%= project_path(project) %>">
+            <a href="<%= project_path(project) %>" data-turbolinks="false">
                 <div class="project-item-title">
                     <span class="project-item-color" color="<%= project.color %>"></span>
                     <p class="project-item-name"><%= project.name %></p>
@@ -13,7 +13,9 @@
                 <div class="project-item-info">
                     <ul class="project-item-users">
                     <% project.users.each do |user| %>
-                        <li class="project-item-user"><img src="https://www.gravatar.com/avatar/0105e1b5390b6fc5b242d408a7ffb25c"><%= user.username %></li>
+                        <li class="project-item-user">
+                            <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(user.email.downcase) %>" title="<%= user.username %>">
+                        </li>
                     <% end %>
                     </ul>
                 </div>

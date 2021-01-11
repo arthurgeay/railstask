@@ -8,15 +8,18 @@
       </svg>
     </div>
     <div class="menu-account">
-      <img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6" class="account-picture">
+      <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(current_user.email.downcase) %>" class="account-picture">
       <div class="account">
-        <p class="account-name">Arthur Geay</p>
-        <button class="account-disconnect">Se déconnecter</button>
+        <p class="account-name"><%= current_user.username %></p>
+        <button class="account-disconnect">
+          <a href="<%= destroy_user_session_path %>" data-method="delete" aria-label="">Se déconnecter</a>
+        </button>
       </div>
     </div>
     <div class="menu-projects">
     <% @projects.each do |project| %>
       <li class="project-item">
+      <a href="<%= project_path(project) %>" data-turbolinks="false">
         <div class="project-item-title">
           <span class="project-item-color" color="<%= project.color %>"></span>
           <p class="project-item-name"><%= project.name %></p>
@@ -24,10 +27,11 @@
         <div class="project-item-info">
           <ul class="project-item-users">
           <% project.users.each do |user| %>
-            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/6d1126780e9d8a242cd22ab446dba7db"><%= user.username %></li>
+            <li class="project-item-user"><img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(user.email.downcase) %>"></li>
           <% end %>
           </ul>
         </div>
+        </a>
       </li>
       <% end %>
       <div class="space"></div>
@@ -106,13 +110,15 @@
           </button>
           <div class="show-member">
           <% @project.users.each do |user| %>
-              <li class="show-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"><%= user.username %></li>
+              <li class="show-user">
+                <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(user.email.downcase) %>" title="<%= user.username %>">
+              </li>
           <% end %>
           </div>
           <button class="member">
-            <label for="addmember" class="member-label">Add member</label>
-            <select id="addmember" class="member-select">
-            </select>
+            <a href="" aria-label="">
+              <label for="addmember" class="member-label">Ajouter un membre</label>
+            </a>
           </button>
         </div>
       </div>
@@ -139,7 +145,10 @@
         <div class="tasklist-container">
 
         <% task_list.tasks.each_with_index do |task, index| %>
-          <div class="task">
+          <div class="task"
+           data-edit="<%= edit_project_task_list_task_path(project_id: @project,task_list_id: task_list,id: task) %>"
+           data-delete="<%= project_task_list_task_path(project_id: @project,task_list_id: task_list,id: task) %>"
+        >
             <p class="task-status"><%= task.status %></p>
             <p class="task-title"><%= task.title %></p>
             <p class="task-duration"><%= task.duration %> jours</p>
@@ -147,7 +156,9 @@
             <div class="task-row">
               <ul class="task-users">
               <% task.users.each do |user| %>
-                <li class="task-user"><img src="https://www.gravatar.com/avatar/87c66a74876158ac59579164eb8559d6"><%= user.username %></li>
+                <li class="task-user">
+                <img src="https://www.gravatar.com/avatar/<%= Digest::MD5.hexdigest(user.email.downcase) %>" title="<%= user.username %>">
+                  </li>
               <% end %>
               </ul>
               <div class="task-complete">
@@ -198,8 +209,8 @@
 </section>
 <script defer>
   //integration button
-  const plugin = document.querySelector('#plugin');
-  const integr = document.querySelector('.integration');
+  let plugin = document.querySelector('#plugin');
+  let integr = document.querySelector('.integration');
   let toggle = false;
   integr.style.display = "none";
 
@@ -222,8 +233,13 @@
     .then(res => console.log(res))
   });
 </script>
-<script defer>
-  const projectsColor = document.querySelectorAll('.project-item-color');
+<script>
+     let projectsColor = document.querySelectorAll('.project-item-color');
+  // if (typeof projectsColor === 'undefined') {
+  //   let projectsColor = document.querySelectorAll('.project-item-color');
+  // } else {
+  //   projectsColor = document.querySelectorAll('.project-item-color');
+  // }
 
   projectsColor.forEach(element => {
       let color = element.getAttribute('color');
@@ -232,22 +248,26 @@
 
 
   if (document.querySelector('body').contains(document.querySelector('.options'))) {
-
-    let options = document.querySelector('.options');
-    options.addEventListener('click', ()=>{
-        let container = document.createElement('div');
-        let edit = document.createElement('a');
-        let del = document.createElement('a');
-        
-        edit.textContent = "Éditer";
-        del.textContent = "Supprimer";
-        container.className = "window";
-        
-        container.appendChild(edit);
-        container.appendChild(del);
-        options.parentElement.appendChild(container);
-    });
     
+    let options = document.querySelectorAll('.options');
+    for (let i = 0; i < options.length; i++) {
+      let container = document.createElement('div');
+      let edit = document.createElement('a');
+      let del = document.createElement('a');
+      
+      edit.textContent = "Éditer";
+      edit.href = options[i].parentElement.getAttribute('data-edit');
+      edit.setAttribute("rel","nofollow");
+      del.textContent = "Supprimer";
+      del.href = options[i].parentElement.getAttribute('data-delete');
+      del.setAttribute("rel","nofollow");
+      del.setAttribute("data-method","delete");
+      container.classList.add('window');
+      container.classList.add('hide');
+      
+      container.appendChild(edit);
+      container.appendChild(del);
+      options[i].parentElement.appendChild(container);
   }
 
   // Checkbox 
@@ -286,5 +306,14 @@
 
     });
   }
+
+  for (let y = 0; y < options.length; y++) {
+    options[y].addEventListener('click', () => {
+      if (document.querySelectorAll('.window')[y].classList.contains('hide'))  document.querySelectorAll('.window')[y].classList.remove('hide');
+      else document.querySelectorAll('.window')[y].classList.add('hide');
+    })
+  }
+
+}
 
 </script>

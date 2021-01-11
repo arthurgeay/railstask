@@ -32,7 +32,7 @@
 
         
   <div class="field member">
-    <label for="exampleDataList" class="form-label member-label">Add member</label>
+    <label for="exampleDataList" class="form-label member-label">Add member</label>    
     <select id="datalistOptions" class="member-select" name="project[project_users_attributes][][user_id]">
       <option hidden selected disabled>Choissisez un membre</option>
       <% @users.each do |user| %>
@@ -40,11 +40,6 @@
       <% end %>
     </select>
     <input type="text" id="role" name="project[project_users_attributes][][role]" value="Membre" class="member-input" hidden>
-  </div>
-
-  <div class="field">
-    <input type="text" class="form-control"  id="id" name="project[project_users_attributes][][user_id]" value=<%= current_user.id %> hidden>
-    <input type="text" class="form-control"  id="role" name="project[project_users_attributes][][role]" value="Administrator"hidden >
   </div>
 
   <div class="actions">

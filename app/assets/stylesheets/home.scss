@@ -61,6 +61,14 @@ input {
     }
 }
 
+button[type=submit] {
+    background-color: $main;
+    padding: 0.7rem 1rem;
+    border-radius: .5rem;
+    color: $font-white;
+    font-weight: bold;
+}
+
 form {
     width: 30rem;
     & + a {
@@ -185,6 +193,16 @@ label[for=user_remember_me] {
     font-size: .9rem;
     color: $font-gray;
     margin-bottom: 0;
+}
+
+#user_remember_me,
+input[type=checkbox] {
+    width: auto;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+    & + label {
+        margin-bottom: 0;
+    }
 }
 
 .forgot-password {
@@ -446,12 +464,18 @@ button.member {
     }
     .window {
         position: absolute;
+        display: block;
         top: 3.5rem;
         right: .7rem;
         background-color: $light-gray;
         padding: 0.7rem;
         border-radius: .5rem;
         z-index: 112;
+        transition: opacity .2s ease-out;
+        &.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
         a {
             display: block;
             font-weight: bold;
@@ -580,6 +604,7 @@ button.member {
         display: flex;
         position: relative;
         overflow-x: scroll;
+        min-height: 250px;
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
@@ -814,6 +839,7 @@ nav {
     }
     &-user {
         @extend .task-user;
+        flex-wrap: wrap;
         img {
             width: 1.7rem;
         }
@@ -887,16 +913,16 @@ nav {
     padding: .75rem 1rem;
     margin-right: 1rem;
     li {
-        border: 2px solid $main;
-        border-radius: 50%;
-        width: 2.25rem;
-        height: 2.25rem;
+        width: fit-content;
+        height: fit-content;
         list-style-type: none;
         margin: 0 .3rem;
         img {
-            width: 100%;
-            height: 100%;
+            width: 2.25rem;
+            height: 2.25rem;
             border-radius: 50%;
+            border: 2px solid $main;
+            background-color: $main;
         }
     }
 }

@@ -1,0 +1,11 @@
+<%= form_with url: integration_service_create_path do |form| %>
+<% if @service === 'slack' %>
+  <%= form.label "Slack" %>
+  <%= form.text_field :slack_webhook, value: @slack %>
+<% end %>
+<% if @service === 'discord' %>
+  <%= form.label "Discord" %>
+  <%= form.text_field :discord_webhook, value: @discord %>
+<% end %>
+  <%= form.submit "Activer l'intégration" %>
+<% end %>

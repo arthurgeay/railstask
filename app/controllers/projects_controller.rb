@@ -1,4 +1,6 @@
 require 'httparty'
+require 'discordrb/webhooks'
+WEBHOOK_URL = 'https://discord.com/api/webhooks/798253330799132673/_u4f7RIIl1UNyvkMowxEnRoAom7Dn50uojNdAWGSZK_fqzcnqvvZFssEM5YE3ZPnXfI_'.freeze
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
@@ -16,14 +18,19 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
+    @own_projects = ProjectUser.where(project_id: @project.id).pluck(:user_id)
+    if @own_projects.include?(current_user.id)
+      @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
+    else
+      redirect_to root_path, alert: 'This is not one of your projects' 
+    end
   end
 
-  #def enforce_current_profile
-  #  unless @profile && @profile.user == current_user.id
-  #    format.html { redirect_to @project, notice: 'This is not one of your projects' }
-  #  end
-  #end
+  def enforce_current_profile
+    unless @profile && @profile.user == current_user.id
+      format.html { redirect_to @project, notice: 'This is not one of your projects' }
+    end
+  end
 
   # GET /projects/new
   def new
@@ -33,7 +40,12 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @users = User.all
+    @all = User.all.pluck(:id)
+    @ban = ProjectUser.where(project_id: @project.id).pluck(:user_id)
+    @ban.each do |b|
+      @all.delete(b)
+    end
+    @users = User.all.where(id: @all  )
   end
 
   # POST /projects
@@ -59,6 +71,17 @@ class ProjectsController < ApplicationController
       
         # @project_member = ProjectUser.new()
         # puts @project_member.inspect
+
+        
+        client = Discordrb::Webhooks::Client.new(url: WEBHOOK_URL)
+        client.execute do |builder|
+          builder.content = 'New project !'
+          builder.add_embed do |embed|
+            embed.title = @project.name
+            embed.description = @project.description
+            embed.timestamp = Time.now
+          end
+        end
 
       else
         format.html { render :new }
