@@ -151,7 +151,11 @@
               <% end %>
               </ul>
               <div class="task-complete">
-                <input type="checkbox" id="complete<%= index.to_s + tli.to_s %>" class="task-complete-check" <% if task.status === 'Done' %> checked <% end %>>
+                <input 
+                  type="checkbox" 
+                  id="complete<%= index.to_s + tli.to_s %>" 
+                  class="task-complete-check"
+                  data-edit-task="<%= project_task_list_task_path(project_id: @project, task_list_id: task_list, id: task)%>.json" <% if task.status === 'Done' %> checked <% end %>>
                 <label for="complete<%= index.to_s + tli.to_s %>" class="task-complete-label">
                   <svg width="25" height="25" viewBox="0 0 15 13" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.2413 1.67668L5.6063 10.9997" stroke="black" stroke-width="4"/>
@@ -244,6 +248,43 @@
         options.parentElement.appendChild(container);
     });
     
+  }
+
+  // Checkbox 
+  const csrfToken = document.querySelector("[name='csrf-token']").content;
+  const checkboxTasks = document.querySelectorAll('.task-complete-check');
+
+/**
+ * Edit task status (In progress or done)
+ */
+  const editTask = (editTaskRoute, statusValue, target) => {
+    fetch(editTaskRoute, {
+          method: 'PUT',
+          headers: {
+            "X-CSRF-Token": csrfToken,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({status: statusValue})
+        })
+        .then(res => res.json())
+        .then(res => {
+            const taskContainer = target.parentElement.parentElement.parentElement;
+            taskContainer.children[0].innerHTML = res.status;
+        })
+        .catch(error => console.log(error))
+  };
+
+  for(let checkbox of checkboxTasks) {
+    checkbox.addEventListener('click', (e) => {
+      const editTaskRoute = checkbox.getAttribute('data-edit-task');
+      
+      if(!checkbox.checked) {
+        editTask(editTaskRoute, "In progress", e.target);
+      } else {
+        editTask(editTaskRoute, "Done", e.target)
+      }
+
+    });
   }
 
 </script>
