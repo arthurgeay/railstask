@@ -37,6 +37,7 @@ class TasksController < ApplicationController
     @task_list = TaskList.find(params[:task_list_id])
     @task = @task_list.tasks.new(task_params)
     @project = Project.find(params[:project_id])
+    @users = @project.users
     
     respond_to do |format|
       if @task.save
@@ -57,6 +58,8 @@ class TasksController < ApplicationController
   def update
     @task_list = TaskList.find(params[:task_list_id])
     @project = Project.find(params[:project_id])
+    @users = @project.users
+    
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to project_path(@project), notice: 'Task was successfully updated.' }
