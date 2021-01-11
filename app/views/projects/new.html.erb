@@ -1,5 +1,9 @@
-<h1>New Project</h1>
+<header>
+    <h2>Crée un nouveau projet</h2>
+</header>
 
-<%= render 'form', project: @project %>
-
-<%= link_to 'Back', projects_path %>
+<main class="center">
+    <%= render 'form', project: @project %>
+    
+    <%= link_to 'Retour', projects_path %>
+</main>

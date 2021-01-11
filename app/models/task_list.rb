@@ -1,3 +1,5 @@
 class TaskList < ApplicationRecord
-    has_many :tasks
+    validates :name, presence: true
+    has_many :tasks, dependent: :destroy
+    belongs_to :project
 end

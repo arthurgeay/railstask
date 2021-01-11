@@ -1,5 +1,8 @@
-<h1>New Task</h1>
+<header>
+    <h2>Crée une tâche dans <%= @task_list.name %> - <%= @project.name %></h2>
+</header>
 
-<%= render 'form', task: @task %>
-
-<%= link_to 'Back', tasks_path %>
+<main class="center">
+    <%= render 'form', project: @project, task_list: @task_list, task: @task %>
+    <%= link_to 'Retour', project_path(@project) %>
+</main>

@@ -1,6 +1,8 @@
-<h1>Editing Task</h1>
-
-<%= render 'form', task: @task %>
-
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<header>
+    <h2>Éditer la tâche de <%= @task_list.name %> - <%= @project.name %></h2>
+</header>
+<main class="center">
+    <%= render 'form', project: @project, task_list: @task_list, task: @task %>
+    
+    <%= link_to 'Retour', project_path(@project) %>
+</main>

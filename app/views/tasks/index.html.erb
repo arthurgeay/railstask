@@ -1,41 +1,27 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Tasks</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Date start</th>
-      <th>Date end</th>
-      <th>Status</th>
-      <th>Description</th>
-      <th>User</th>
-      <th>Project</th>
-      <th>Task list</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.date_start %></td>
-        <td><%= task.date_end %></td>
-        <td><%= task.status %></td>
-        <td><%= task.description %></td>
-        <td><%= task.user_id %></td>
-        <td><%= task.project_id %></td>
-        <td><%= task.task_list_id %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<main>
+  
+  <h1>Tasks for <%= @task_list.name %> - <%= @project.name %></h1>
+  
+  <% @tasks.each do |task| %>
+    <div class="task">
+      <p class="task-status"><%= task.status %></p>
+      <p class="task-title"><%= task.title %></p>
+      <p class="task-duration"><%= task.duration %></p>
+      <p class="task-description"><%= task.description %></p>
+      <ul class="task-users">
+      <% task.users.each do |user| %>
+        <li class="task-user"><%= user.username %></li>
+      <% end %>
+      </ul>
+      <p class=""><%= task.task_list.name %></p>
+      <div class="task-commands">
+        <%= link_to 'Show', project_task_list_task_path(id: task) %>
+        <%= link_to 'Edit', edit_project_task_list_task_path(id: task) %>
+        <%= link_to 'Destroy', project_task_list_task_path(id: task), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Task', new_task_path %>
+  
+  <%= link_to 'New Task', new_project_task_list_task_path(project_id: @project, task_list_id: @task_list), class: 'new-task' %>
+</main>
