@@ -41,9 +41,22 @@ class TasksController < ApplicationController
     
     respond_to do |format|
       if @task.save
-        response = HTTParty.post('https://hooks.slack.com/services/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',
+        response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
         :body => { :text => "📄 Une nouvelle tâche「" + task_params['title'] + "」à été crée dans『" + @task_list['name'] + "』-【" + @project['name'] + "】! 🎉" }.to_json)
+
+        client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
+        client.execute do |builder|
+          builder.add_embed do |embed|
+            embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: current_user.username, url: "https://www.youtube.com/watch?v=M36MVIYTNlA", icon_url: "https://www.gravatar.com/avatar/" +  Digest::MD5.hexdigest(current_user.email))
+            embed.title = ' 📄  Nouvelle tâche !'
+            embed.description = "**Projet:** " + @project.name + "\n**Liste:** " + @task_list.name + "\n**Tâche:** " + @task.title + "\n\n**Description**: \n" + @task.description + "\n\n**Participants:** " + current_user.username
+            embed.colour = 13369344
+            embed.timestamp = Time.now
+            embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "From RailsTask🚄", icon_url:"https://cloud-image-dlcn.netlify.com/railstask.png")
+          end
+        end
+
         format.html { redirect_to project_path(@project), notice: 'Task was successfully created.' }
         format.json { render project_path(@project), status: :created, location: @task }
       else
