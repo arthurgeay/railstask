@@ -151,7 +151,7 @@
               <% end %>
               </ul>
               <div class="task-complete">
-                <input type="checkbox" id="complete<%= index.to_s + tli.to_s %>" class="task-complete-check">
+                <input type="checkbox" id="complete<%= index.to_s + tli.to_s %>" class="task-complete-check" <% if task.status === 'Done' %> checked <% end %>>
                 <label for="complete<%= index.to_s + tli.to_s %>" class="task-complete-label">
                   <svg width="25" height="25" viewBox="0 0 15 13" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.2413 1.67668L5.6063 10.9997" stroke="black" stroke-width="4"/>
