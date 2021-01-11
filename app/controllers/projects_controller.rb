@@ -16,7 +16,12 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
+    @own_projects = ProjectUser.where(project_id: @project.id).pluck(:user_id)
+    if @own_projects.include?(current_user.id)
+      @projects = Project.joins(:project_users).where({project_users: {user_id: current_user.id}}) 
+    else
+      redirect_to root_path, alert: 'This is not one of your projects' 
+    end
   end
 
   #def enforce_current_profile
