@@ -38,7 +38,12 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @users = User.all
+    @all = User.all.pluck(:id)
+    @ban = ProjectUser.where(project_id: @project.id).pluck(:user_id)
+    @ban.each do |b|
+      @all.delete(b)
+    end
+    @users = User.all.where(id: @all  )
   end
 
   # POST /projects
