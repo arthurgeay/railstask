@@ -9,5 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/integration/:service', to: 'integration#new', as: 'integration_service'
+  post '/integration', to: 'integration#create', as: 'integration_service_create'
 
 end

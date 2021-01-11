@@ -61,6 +61,14 @@ input {
     }
 }
 
+button[type=submit] {
+    background-color: $main;
+    padding: 0.7rem 1rem;
+    border-radius: .5rem;
+    color: $font-white;
+    font-weight: bold;
+}
+
 form {
     width: 30rem;
     & + a {
