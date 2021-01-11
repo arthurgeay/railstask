@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2021_01_11_135344) do
     t.bigint "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_project_users_on_project_id"
-    t.index ["user_id"], name: "index_project_users_on_user_id"
+    t.index ["project_id"], name: "index_project_users_on_projects_id"
+    t.index ["user_id"], name: "index_project_users_on_users_id"
   end
 
   create_table "projects", force: :cascade do |t|

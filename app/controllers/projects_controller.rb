@@ -1,5 +1,6 @@
 require 'httparty'
-require 'discordrb'
+require 'discordrb/webhooks'
+WEBHOOK_URL = 'https://discord.com/api/webhooks/798253330799132673/_u4f7RIIl1UNyvkMowxEnRoAom7Dn50uojNdAWGSZK_fqzcnqvvZFssEM5YE3ZPnXfI_'.freeze
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
@@ -71,13 +72,16 @@ class ProjectsController < ApplicationController
         # @project_member = ProjectUser.new()
         # puts @project_member.inspect
 
-        bot = Discordrb::Bot.new token: 'Nzk4MjM4MDYyMjc0NDEyNTQ0.X_yHIA.cf1DFxrtHattPLdmJZ_2vJ-Hixw', client_id: 798238062274412544
-
-        bot.message(with_text: 'Ping!') do |event|
-          event.respond 'Pong!'
-        end
         
-        bot.run
+        client = Discordrb::Webhooks::Client.new(url: WEBHOOK_URL)
+        client.execute do |builder|
+          builder.content = 'New project !'
+          builder.add_embed do |embed|
+            embed.title = @project.name
+            embed.description = @project.description
+            embed.timestamp = Time.now
+          end
+        end
 
       else
         format.html { render :new }
