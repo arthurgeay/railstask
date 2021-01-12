@@ -6,6 +6,13 @@ class ProjectUsersController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
     @project_users = @project.project_users
+
+    @all = User.all.pluck(:id)
+    @ban = ProjectUser.where(project_id: @project.id).pluck(:user_id)
+    @ban.each do |b|
+      @all.delete(b)
+    end
+    @users = User.all.where(id: @all  )
   end
 
   # GET /project_users/1
@@ -26,7 +33,7 @@ class ProjectUsersController < ApplicationController
   # POST /project_users.json
   def create
     @project_user = ProjectUser.new(project_user_params)
-
+    
     respond_to do |format|
       if @project_user.save
         format.html { redirect_to @project_user, notice: 'Project user was successfully created.' }
