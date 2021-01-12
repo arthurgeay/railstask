@@ -3,7 +3,7 @@
 ## Pour lancer le projet rapidement
 
 ```
-** make prepare-dev **
+make prepare-dev
 ```
 
 This README would normally document whatever steps are necessary to get the
