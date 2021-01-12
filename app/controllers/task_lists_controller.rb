@@ -48,14 +48,14 @@ class TaskListsController < ApplicationController
               "type": "section",
               "text": {
                 "type": "mrkdwn",
-                "text": "*💼 Nouvelle Liste*!\n " + task_list_params['name']
+                "text": "*💼 Nouvelle Liste*!\n"
               }
             },
             {
               "type": "header",
               "text": {
                 "type": "plain_text",
-                "text": "Liste: ",
+                "text": "Liste: " + @task_list['name'],
                 "emoji": true
               }
             },
