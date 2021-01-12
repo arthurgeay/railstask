@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
         @project.users.each do |user|
           @members << user.username
         end
-        if current_user.slack_webhook.start_with?( 'https://hooks.slack.com/')
+        if current_user.slack_webhook != nil and current_user.slack_webhook.start_with?( 'https://hooks.slack.com/')
           response = HTTParty.post(current_user.slack_webhook,
           :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
           :body =>               
@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
       
         # @project_member = ProjectUser.new()
         # puts @project_member.inspect
-        if current_user.discord_webhook.start_with?( 'https://discord.com/')
+        if current_user.discord_webhook != nil and current_user.discord_webhook.start_with?( 'https://discord.com/')
 
           client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
           client.execute do |builder|
