@@ -1,14 +1,14 @@
 <%= form_with(model: project_user, local: true) do |form| %>
     <div class="field member">
     <label for="exampleDataList" class="form-label member-label">Add member</label>    
-    <select id="datalistOptions" class="member-select" name="project_users[user_id]">
+    <select id="datalistOptions" class="member-select" name="project_user[user_id]">
       <option hidden selected disabled>Choissisez un membre</option>
       <% @users.each do |user| %>
         <option class="form-control" value="<%= user.id %>"><%= user.email %></option>
       <% end %>
     </select>
-    <input type="text" id="role" name="project_users[role]" value="Membre" class="member-input" hidden>
-    <input type="text" id="project_id" name="project_users[project_id]" value="<%= @project.id %>" class="member-input" hidden>
+    <input type="text" id="role" name="project_user[role]" value="Membre" class="member-input" hidden>
+    <input type="text" id="project_id" name="project_user[project_id]" value="<%= @project.id %>" class="member-input" hidden>
     </div>
   
     <div class="actions">
