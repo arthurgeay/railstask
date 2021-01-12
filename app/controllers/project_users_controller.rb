@@ -32,17 +32,11 @@ class ProjectUsersController < ApplicationController
   # POST /project_users
   # POST /project_users.json
   def create
-    byebug
     @project_user = ProjectUser.new(project_user_params)
-    
-    respond_to do |format|
       if @project_user.save
-        format.html { redirect_to @project_user, notice: 'Project user was successfully created.' }
-        format.json { render :show, status: :created, location: @project_user }
+         redirect_to project_path(@project_user.project_id), notice: 'Project user was successfully created.' 
       else
-        format.html { render :new }
-        format.json { render json: @project_user.errors, status: :unprocessable_entity }
-      end
+         render :new 
     end
   end
 
