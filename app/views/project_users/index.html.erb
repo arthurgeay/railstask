@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
+<header>
+    <h2>Modifier les membres du projet</h2>
+</header>
 
-<h1>Project Users</h1>
-
+<main class="center">
 <table>
   <thead>
     <tr>
@@ -27,3 +29,4 @@
 
 <%= render 'form', project_user: @project_user %>
 <%= link_to 'Retour', project_path(@project), class:"subtitle-action" %>
+</main>
