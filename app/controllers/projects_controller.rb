@@ -82,7 +82,7 @@ class ProjectsController < ApplicationController
                "type": "header",
                "text": {
                  "type": "plain_text",
-                 "text": "Projet: " + project_params['title'],
+                 "text": "Projet: " + @project['name'],
                  "emoji": true
                }
              },

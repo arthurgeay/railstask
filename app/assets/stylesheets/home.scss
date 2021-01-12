@@ -109,9 +109,19 @@ label {
     align-items: flex-start;
 }
 .row {
+    display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 2rem;
+}
+
+.project-user .row {
+    p {
+        margin: 0 .5rem;
+    }
+    &.upper {
+        font-weight: bold;
+    }
 }
 
 .error-message {
