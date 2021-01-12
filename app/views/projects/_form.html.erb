@@ -28,20 +28,6 @@
     <%= form.text_area :description %>
   </div>
 
-
-
-        
-  <div class="field member">
-    <label for="exampleDataList" class="form-label member-label">Add member</label>    
-    <select id="datalistOptions" class="member-select" name="project[project_users_attributes][][user_id]">
-      <option hidden selected disabled>Choissisez un membre</option>
-      <% @users.each do |user| %>
-        <option class="form-control" value="<%= user.id %>"><%= user.email %></option>
-      <% end %>
-    </select>
-    <input type="text" id="role" name="project[project_users_attributes][][role]" value="Membre" class="member-input" hidden>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>
