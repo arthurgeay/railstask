@@ -1,4 +1,5 @@
 require 'httparty'
+require 'discordrb/webhooks'
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
@@ -56,7 +57,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        response = HTTParty.post('https://hooks.slack.com/services/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',
+        response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
         :body => { :text => "Le projet『" + project_params['name'] + "』à été crée ! 🎉"}.to_json)
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -69,6 +70,19 @@ class ProjectsController < ApplicationController
       
         # @project_member = ProjectUser.new()
         # puts @project_member.inspect
+
+        
+        client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
+        client.execute do |builder|
+          builder.add_embed do |embed|
+            embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: current_user.username, url: "https://www.youtube.com/watch?v=M36MVIYTNlA", icon_url: "https://www.gravatar.com/avatar/" +  Digest::MD5.hexdigest(current_user.email))
+            embed.title = '🎉 Nouveau Projet !'
+            embed.description = "**Projet:** " + @project.name + "\n\n**Description**: \n" + @project.description + "\n\n**Membres:** " + current_user.username
+            embed.colour = 13369344
+            embed.timestamp = Time.now
+            embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "From RailsTask🚄", icon_url:"https://cloud-image-dlcn.netlify.com/railstask.png")
+          end
+        end
 
       else
         format.html { render :new }
