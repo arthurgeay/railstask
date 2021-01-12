@@ -34,7 +34,12 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
-    @users = User.all
+    
+    @all = User.all.pluck(:id)
+    @current = current_user.id
+    @all.delete(@current)
+    @all
+    @users = User.all.where(id: @all  )
   end
 
   # GET /projects/1/edit

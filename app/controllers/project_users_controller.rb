@@ -32,6 +32,7 @@ class ProjectUsersController < ApplicationController
   # POST /project_users
   # POST /project_users.json
   def create
+    byebug
     @project_user = ProjectUser.new(project_user_params)
     
     respond_to do |format|
