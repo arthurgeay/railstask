@@ -52,7 +52,6 @@ class ProjectsController < ApplicationController
   def create
    
     @users = User.all
-
     @project = Project.new(project_params)
 
     respond_to do |format|
@@ -74,12 +73,17 @@ class ProjectsController < ApplicationController
         # puts @project_member.inspect
 
         if current_user.discord_webhook.start_with?( 'https://discord.com/')
+          @members = []
+          @project.users.each do |user|
+            @members << user.username
+          end
+
           client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
           client.execute do |builder|
             builder.add_embed do |embed|
               embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: current_user.username, url: "https://www.youtube.com/watch?v=M36MVIYTNlA", icon_url: "https://www.gravatar.com/avatar/" +  Digest::MD5.hexdigest(current_user.email))
               embed.title = '🎉 Nouveau Projet !'
-              embed.description = "**Projet:** " + @project.name + "\n\n**Description**: \n" + @project.description + "\n\n**Membres:** " + current_user.username
+              embed.description = "**Projet:** " + @project.name + "\n\n**Description**: \n" + @project.description + "\n\n**Membres:** " + @members.join(", ")
               embed.colour = 13369344
               embed.timestamp = Time.now
               embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "From RailsTask🚄", icon_url:"https://cloud-image-dlcn.netlify.com/railstask.png")
