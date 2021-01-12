@@ -38,10 +38,12 @@ class TaskListsController < ApplicationController
 
     respond_to do |format|
       if @task_list.save
+      if current_user.slack_webhook.start_with?( 'https://hooks.slack.com/')
         response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
         :body => { :text => "🗂 Une nouvelle liste de tâche【" + task_list_params['name'] + "】à été crée dans le projet『" + @project['name'] + "』! 🎉"}.to_json)
-
+      end
+      if current_user.discord_webhook.start_with?( 'https://discord.com/')
         client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
         client.execute do |builder|
           builder.add_embed do |embed|
@@ -53,7 +55,7 @@ class TaskListsController < ApplicationController
             embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "From RailsTask🚄", icon_url:"https://cloud-image-dlcn.netlify.com/railstask.png")
           end
         end
-
+      end
 
         format.html { redirect_to project_path(@project), notice: 'Task list was successfully created.' }
         format.json { render project_path(@project), status: :created, location: @task_list }
