@@ -8,8 +8,8 @@
 
 # Users
 @users = User.create([
-    {email: 'john@doe.fr', password: 'railstask', username: 'John Doe'},
-    {email: 'luke@dev.dev', password: 'railstask', username: 'Luke Dev'}
+    {email: 'railstask.app@mail.fr', password: 'railstask', username: 'John Doe'},
+    {email: 'michel.jambon@mail.fr', password: 'railstask', username: 'Michel Jambon'}
 ])
 
 p "Created #{User.count} users"
