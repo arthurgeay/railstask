@@ -41,38 +41,21 @@ class TaskListsController < ApplicationController
       if current_user.slack_webhook != nil and current_user.slack_webhook.start_with?('https://hooks.slack.com/')
         response = HTTParty.post(current_user.slack_webhook,
         :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-        :body =>               
+        :body => 
         {
-         "blocks": [
-           {
-             "type": "section",
-             "text": {
-               "type": "mrkdwn",
-               "text": "*💼 Nouvelle Liste* !\n "
-             }
-           },
-           {
-             "type": "header",
-             "text": {
-               "type": "plain_text",
-               "text": "Projet: " + task_list_params['name'],
-               "emoji": true
-             }
-           },
-          {
           "blocks": [
             {
               "type": "section",
               "text": {
                 "type": "mrkdwn",
-                "text": "*💼 Nouvelle Liste* !\n "
+                "text": "*💼 Nouvelle Liste*!\n " + task_list_params['name']
               }
             },
             {
               "type": "header",
               "text": {
                 "type": "plain_text",
-                "text": "Projet: " + task_list_params['name'],
+                "text": "Liste: ",
                 "emoji": true
               }
             },
@@ -84,13 +67,6 @@ class TaskListsController < ApplicationController
               }
             },
             {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "*Description:* \n" + @project['description'] + "\n\n_"
-              }
-            },
-            {
               "type": "context",
               "elements": [
                 {
@@ -99,34 +75,10 @@ class TaskListsController < ApplicationController
                 }
               ]
             }
-          },
-           {
-             "type": "section",
-             "text": {
-               "type": "mrkdwn",
-               "text": "*Description:* \n" + @project['description'] + "\n\n_"
-             }
-           },
-           {
-             "type": "context",
-             "elements": [
-               {
-                 "type": "mrkdwn",
-                 "text": "*Membres: * " + @members.join(", ")
-               }
-             ]
-           },
-           {
-             "type": "context",
-             "elements": [
-               {
-                 "type": "mrkdwn",
-                 "text": "📚 *Auteur* : " + current_user.username
-               }
-             ]
-           }
-         ]
-       }.to_json)
+          ]
+        }.to_json)
+
+   
       end
       if current_user.discord_webhook != nil and current_user.discord_webhook.start_with?( 'https://discord.com/')
         client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
