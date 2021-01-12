@@ -60,10 +60,44 @@ class TaskListsController < ApplicationController
              }
            },
           {
-            "type": "section",
-            "text": {
-              "type": "mrkdwn",
-              "text": "🚀 *Projet:* " + @project['name']
+          "blocks": [
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*💼 Nouvelle Liste* !\n "
+              }
+            },
+            {
+              "type": "header",
+              "text": {
+                "type": "plain_text",
+                "text": "Projet: " + task_list_params['name'],
+                "emoji": true
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "🚀 *Projet:* " + @project['name']
+              }
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "*Description:* \n" + @project['description'] + "\n\n_"
+              }
+            },
+            {
+              "type": "context",
+              "elements": [
+                {
+                  "type": "mrkdwn",
+                  "text": "📚 *Auteur* : " + current_user.username
+                }
+              ]
             }
           },
            {

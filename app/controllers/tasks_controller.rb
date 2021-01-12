@@ -104,6 +104,7 @@ class TasksController < ApplicationController
               ]
             }.to_json)
         end
+
         if current_user.discord_webhook.start_with?( 'https://discord.com/')
           client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
           client.execute do |builder|
