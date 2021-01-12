@@ -41,18 +41,70 @@ class TasksController < ApplicationController
     
     respond_to do |format|
       if @task.save
+        @users = @task.users
+        @stackholders = []
+        @mails = []
+        @users.each do |user|
+          @stackholders << user.username
+        end
+
         if current_user.slack_webhook.start_with?( 'https://hooks.slack.com/')
           response = HTTParty.post(current_user.slack_webhook,
           :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-          :body => { :text => "📄 Une nouvelle tâche「" + task_params['title'] + "」à été crée dans『" + @task_list['name'] + "』-【" + @project['name'] + "】! 🎉" }.to_json)
+          :body =>               
+             {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*📄 Nouvelle Tâche* !\n "
+                  }
+                },
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Tâche: " + task_params['title'],
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "🚀 *Projet:* " + @project['name'] + "\n *💼 Liste:* " + @task_list['name']
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Description:* \n" + @task['description'] + "\n\n_"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Participants: * " + @stackholders.join(", ")
+                    },
+                  ]
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "📚 *Auteur* : " + current_user.username
+                    }
+                  ]
+                }
+              ]
+            }.to_json)
         end
         if current_user.discord_webhook.start_with?( 'https://discord.com/')
-          @users = @task.users
-          @stackholders = []
-          @users.each do |user|
-            @stackholders << user.username
-          end
-
           client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
           client.execute do |builder|
             builder.add_embed do |embed|

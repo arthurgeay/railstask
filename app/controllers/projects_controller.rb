@@ -61,10 +61,58 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        @members = []
+        @project.users.each do |user|
+          @members << user.username
+        end
         if current_user.slack_webhook.start_with?( 'https://hooks.slack.com/')
           response = HTTParty.post(current_user.slack_webhook,
           :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-          :body => { :text => "Le projet『" + project_params['name'] + "』à été crée ! 🎉"}.to_json)
+          :body =>               
+          {
+           "blocks": [
+             {
+               "type": "section",
+               "text": {
+                 "type": "mrkdwn",
+                 "text": "*🚀 Nouveau Projet* !\n "
+               }
+             },
+             {
+               "type": "header",
+               "text": {
+                 "type": "plain_text",
+                 "text": "Projet: " + project_params['title'],
+                 "emoji": true
+               }
+             },
+             {
+               "type": "section",
+               "text": {
+                 "type": "mrkdwn",
+                 "text": "*Description:* \n" + @project['description'] + "\n\n_"
+               }
+             },
+             {
+               "type": "context",
+               "elements": [
+                 {
+                   "type": "mrkdwn",
+                   "text": "*Membres: * " + @members.join(", ")
+                 }
+               ]
+             },
+             {
+               "type": "context",
+               "elements": [
+                 {
+                   "type": "mrkdwn",
+                   "text": "📚 *Auteur* : " + current_user.username
+                 }
+               ]
+             }
+           ]
+         }.to_json)
           format.html { redirect_to @project, notice: 'Project was successfully created.' }
           format.json { render :show, status: :created, location: @project }
         end
@@ -78,10 +126,6 @@ class ProjectsController < ApplicationController
         # puts @project_member.inspect
 
         if current_user.discord_webhook.start_with?( 'https://discord.com/')
-          @members = []
-          @project.users.each do |user|
-            @members << user.username
-          end
 
           client = Discordrb::Webhooks::Client.new(url: current_user.discord_webhook)
           client.execute do |builder|
